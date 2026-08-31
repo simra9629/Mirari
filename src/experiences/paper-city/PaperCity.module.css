@@ -1,0 +1,124 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #1a2438 0%, #0c1420 78%);
+  overflow: hidden;
+  padding: 90px 24px 60px;
+}
+
+.canvas {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  max-width: 320px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(127, 160, 201, 0.28);
+  background: rgba(12, 20, 32, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a7bfdc;
+  margin-bottom: 6px;
+}
+
+.hudPrompt {
+  font-size: 0.88rem;
+  color: #dbe6f2;
+  line-height: 1.5;
+}
+
+.levelBadge {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a7bfdc;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(127, 160, 201, 0.28);
+  background: rgba(12, 20, 32, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.completePanel {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(12, 20, 32, 0.82);
+  backdrop-filter: blur(6px);
+  animation: rise 480ms var(--ease-discover);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completeCard {
+  max-width: 380px;
+  text-align: center;
+}
+
+.completeTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #dbe6f2;
+  margin-bottom: 12px;
+}
+
+.completeFact {
+  font-size: 0.86rem;
+  color: #a7bfdc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.nextButton {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0c1420;
+  background: #7fa0c9;
+  border: 1px solid #7fa0c9;
+  border-radius: 999px;
+  padding: 9px 18px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.nextButton:hover,
+.nextButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px 2px rgba(127, 160, 201, 0.5);
+}

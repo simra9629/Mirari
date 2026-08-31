@@ -1,0 +1,161 @@
+.stage {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  background: radial-gradient(ellipse at 50% 20%, #2a1830 0%, #120a16 78%);
+  padding: 100px 24px 60px;
+}
+
+.workbench {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 100px;
+}
+
+.slot {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.slot.filled {
+  border-style: solid;
+  border-color: var(--slot-color, #f56fa8);
+}
+
+.slotLabel {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--mirari-text);
+  text-align: center;
+  padding: 0 6px;
+}
+
+.plus {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--mirari-text-faint);
+}
+
+.resultPanel {
+  min-height: 3.6em;
+  max-width: 420px;
+  text-align: center;
+}
+
+.resultTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--mirari-text);
+  margin-bottom: 4px;
+}
+
+.resultDesc {
+  font-size: 0.85rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+}
+
+.fizzle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--mirari-text-faint);
+}
+
+.clearButton {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+}
+
+.clearButton:hover,
+.clearButton:focus-visible {
+  color: var(--mirari-text-muted);
+}
+
+.paletteEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  align-self: flex-start;
+  max-width: 640px;
+  width: 100%;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 12px;
+  max-width: 640px;
+  width: 100%;
+}
+
+.elementButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.elementButton:hover,
+.elementButton:focus-visible {
+  transform: translateY(-2px);
+}
+
+.elementButton.selected {
+  border-color: var(--el-color);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--el-color);
+  box-shadow: 0 0 14px 0 color-mix(in srgb, var(--el-color) 50%, transparent);
+}
+
+.elementName {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--mirari-text-muted);
+  text-align: center;
+}
+
+.newBadge {
+  position: absolute;
+  top: -4px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mirari-periwinkle);
+}
+
+.elementButtonWrap {
+  position: relative;
+}
+
+.progress {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--mirari-text-faint);
+}

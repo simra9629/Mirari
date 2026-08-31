@@ -1,0 +1,121 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 200px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--mirari-border);
+  background: linear-gradient(180deg, rgba(17, 26, 48, 0.5), rgba(11, 16, 32, 0.85));
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 320ms var(--ease-discover), transform 320ms var(--ease-discover);
+}
+
+.card.lg {
+  min-height: 320px;
+}
+
+.card.sm {
+  min-height: 160px;
+}
+
+.card.available {
+  cursor: pointer;
+}
+
+.card.available:hover,
+.card.available:focus-visible {
+  border-color: var(--card-accent, var(--mirari-periwinkle));
+  transform: translateY(-2px);
+}
+
+.card.dormant {
+  cursor: default;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 20%,
+    color-mix(in srgb, var(--card-accent, var(--mirari-periwinkle)) 22%, transparent),
+    transparent 60%
+  );
+  opacity: 0.35;
+  transition: opacity 420ms var(--ease-discover);
+  z-index: -1;
+}
+
+.card.available:hover .glow,
+.card.available:focus-visible .glow {
+  opacity: 0.75;
+}
+
+.motif {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--card-accent, var(--mirari-periwinkle));
+  opacity: 0.85;
+  filter: blur(0.2px);
+  box-shadow: 0 0 24px 2px var(--card-accent, var(--mirari-periwinkle));
+  transition: transform 420ms var(--ease-discover);
+}
+
+.card.available:hover .motif,
+.card.available:focus-visible .motif {
+  transform: scale(1.15);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+
+.card.lg .title {
+  font-size: 1.5rem;
+}
+
+.description {
+  font-size: 0.88rem;
+  color: var(--mirari-text-muted);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 320ms var(--ease-discover), opacity 260ms var(--ease-discover);
+}
+
+.card.available:hover .description,
+.card.available:focus-visible .description {
+  max-height: 3.6em;
+  opacity: 1;
+  margin-top: 4px;
+}
+
+.badge {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  padding: 4px 8px;
+  border: 1px solid var(--mirari-border);
+  border-radius: 999px;
+}

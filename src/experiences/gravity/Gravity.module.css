@@ -1,0 +1,90 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(ellipse at 50% 30%, #1a1530 0%, #0a0812 78%);
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(340px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(124, 130, 255, 0.25);
+  background: rgba(10, 8, 18, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a9a6d9;
+  margin-bottom: 10px;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.slider {
+  flex: 1;
+  accent-color: #7c82ff;
+}
+
+.gravityValue {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #edf3ff;
+  min-width: 64px;
+  text-align: right;
+}
+
+.comparison {
+  font-size: 0.82rem;
+  color: #cdd0ee;
+  line-height: 1.5;
+}
+
+.resetRow {
+  position: absolute;
+  right: 24px;
+  bottom: 28px;
+  z-index: 3;
+}
+
+.resetButton {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #cdd0ee;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 130, 255, 0.3);
+  background: rgba(10, 8, 18, 0.6);
+  backdrop-filter: blur(8px);
+  transition: border-color 200ms ease;
+}
+
+.resetButton:hover,
+.resetButton:focus-visible {
+  border-color: #7c82ff;
+}

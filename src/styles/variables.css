@@ -1,0 +1,39 @@
+:root {
+  /* Backgrounds — depth, not a flat rectangle */
+  --mirari-void: #070a12;
+  --mirari-midnight: #0b1020;
+  --mirari-abyss: #111a30;
+  --mirari-slate: #202c47;
+
+  --mirari-bg: var(--mirari-void);
+  --mirari-surface: var(--mirari-abyss);
+  --mirari-border: var(--mirari-slate);
+
+  /* Text */
+  --mirari-text: #edf3ff;
+  --mirari-text-muted: #b8c4d9;
+  --mirari-text-faint: #71809b;
+
+  /* Signature accent — a point of light, used sparingly */
+  --mirari-periwinkle: #7c82ff;
+  --mirari-periwinkle-deep: #4e55c9;
+  --mirari-periwinkle-pale: #b6b9ff;
+  --mirari-cyan: #67d9ff;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --ease-discover: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ease-discover: linear;
+  }
+}

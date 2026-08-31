@@ -1,0 +1,96 @@
+.mark {
+  position: relative;
+  width: var(--mark-size, 44px);
+  height: var(--mark-size, 44px);
+  flex-shrink: 0;
+}
+
+.mark svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.core {
+  transform-origin: 50% 50%;
+  animation: pulse 4.2s ease-in-out infinite;
+}
+
+.ring {
+  transform-origin: 50% 50%;
+  animation: spin 22s linear infinite;
+}
+
+.ringInner {
+  transform-origin: 50% 50%;
+  animation: spinReverse 14s linear infinite;
+}
+
+.mark:hover .ring {
+  animation-duration: 5s;
+}
+
+.mark:hover .ringInner {
+  animation-duration: 3.4s;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinReverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring,
+  .ringInner,
+  .core {
+    animation: none;
+  }
+}
+
+.wordmarkRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--wordmark-size, clamp(2.6rem, 6vw, 4.4rem));
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(
+    100deg,
+    var(--mirari-text) 40%,
+    var(--mirari-periwinkle-pale) 65%,
+    var(--mirari-periwinkle) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

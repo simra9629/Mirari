@@ -1,0 +1,244 @@
+.sky {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(ellipse at 50% 30%, #0c1530 0%, #030611 70%);
+  overflow: hidden;
+}
+
+.canvasLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.field {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: width 520ms var(--ease-discover), height 520ms var(--ease-discover);
+}
+
+.starButton {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.starDot {
+  border-radius: 50%;
+  background: #f5f7ff;
+  transition: background 260ms ease, box-shadow 260ms ease, transform 260ms ease;
+}
+
+.starButton:hover .starDot,
+.starButton:focus-visible .starDot {
+  transform: scale(1.35);
+}
+
+.starButton.found .starDot {
+  background: #ffe29a;
+  box-shadow: 0 0 18px 4px rgba(255, 226, 154, 0.75);
+}
+
+.starButton.miss .starDot {
+  animation: missFlash 420ms ease;
+}
+
+@keyframes missFlash {
+  0% {
+    background: #d36b6b;
+  }
+  100% {
+    background: #f5f7ff;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--mirari-text-muted);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.starButton.found .label,
+.starButton:hover .label,
+.starButton:focus-visible .label {
+  opacity: 1;
+}
+
+.twinkleStar .starDot {
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.twinkleStar:nth-child(3n) .starDot {
+  animation-delay: -0.8s;
+}
+
+.twinkleStar:nth-child(5n) .starDot {
+  animation-delay: -1.6s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.planetStar .starDot {
+  background: #ffcf8a;
+  animation: none;
+  box-shadow: 0 0 10px 2px rgba(255, 207, 138, 0.5);
+}
+
+.planetStar.found .starDot {
+  background: #ffe29a;
+  box-shadow: 0 0 20px 5px rgba(255, 226, 154, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twinkleStar .starDot {
+    animation: none;
+  }
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  max-width: 340px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--mirari-border);
+  background: rgba(11, 16, 32, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  margin-bottom: 6px;
+}
+
+.hudPrompt {
+  font-size: 0.92rem;
+  color: var(--mirari-text);
+  line-height: 1.5;
+}
+
+.progress {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--mirari-periwinkle-pale);
+}
+
+.completePanel {
+  position: absolute;
+  right: 24px;
+  bottom: 28px;
+  z-index: 3;
+  max-width: 340px;
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--mirari-periwinkle);
+  background: rgba(11, 16, 32, 0.75);
+  backdrop-filter: blur(8px);
+  animation: rise 480ms var(--ease-discover);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completeTitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.completeFact {
+  font-size: 0.85rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.completeActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.resetButton {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mirari-periwinkle-pale);
+  border: 1px solid var(--mirari-periwinkle-deep);
+  border-radius: 999px;
+  padding: 7px 14px;
+}
+
+.resetButton:hover,
+.resetButton:focus-visible {
+  color: var(--mirari-text);
+  border-color: var(--mirari-periwinkle);
+}
+
+.nextButton {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #030611;
+  background: #ffe29a;
+  border: 1px solid #ffe29a;
+  border-radius: 999px;
+  padding: 7px 14px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.nextButton:hover,
+.nextButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px 2px rgba(255, 226, 154, 0.5);
+}

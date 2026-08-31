@@ -1,0 +1,158 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #16241a 0%, #0c1710 100%);
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 96px;
+  z-index: 3;
+  max-width: 320px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(197, 76, 75, 0.28);
+  background: rgba(12, 23, 16, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c99a95;
+  margin-bottom: 6px;
+}
+
+.hudPrompt {
+  font-size: 0.88rem;
+  color: #e8dcd6;
+  line-height: 1.5;
+}
+
+.milestoneBadge {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c99a95;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(197, 76, 75, 0.28);
+  background: rgba(12, 23, 16, 0.6);
+}
+
+.choiceRow {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 14px;
+}
+
+.choiceButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid #3a4a3c;
+  background: rgba(12, 23, 16, 0.75);
+  backdrop-filter: blur(8px);
+  color: #e8dcd6;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.choiceButton:hover,
+.choiceButton:focus-visible {
+  border-color: #c54c4b;
+  transform: translateY(-2px);
+}
+
+.choiceLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.completePanel {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(12, 23, 16, 0.85);
+  backdrop-filter: blur(6px);
+  animation: rise 480ms var(--ease-discover);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completeCard {
+  max-width: 400px;
+  text-align: center;
+}
+
+.completeTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #f0d8d6;
+  margin-bottom: 12px;
+}
+
+.completeFact {
+  font-size: 0.86rem;
+  color: #c99a95;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.nextButton {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0c1710;
+  background: #c54c4b;
+  border: 1px solid #c54c4b;
+  border-radius: 999px;
+  padding: 9px 18px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.nextButton:hover,
+.nextButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px 2px rgba(197, 76, 75, 0.5);
+}
