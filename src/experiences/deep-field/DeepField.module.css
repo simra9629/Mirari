@@ -1,0 +1,147 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #020103;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  max-width: 320px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 201, 135, 0.25);
+  background: rgba(2, 1, 3, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e0bb8a;
+  margin-bottom: 6px;
+}
+
+.hudPrompt {
+  font-size: 0.88rem;
+  color: #f2e6d4;
+  line-height: 1.5;
+}
+
+.zoomBadge {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e0bb8a;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 201, 135, 0.25);
+  background: rgba(2, 1, 3, 0.6);
+}
+
+.resetRow {
+  position: absolute;
+  right: 24px;
+  bottom: 28px;
+  z-index: 3;
+}
+
+.resetButton {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e0bb8a;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 201, 135, 0.25);
+  background: rgba(2, 1, 3, 0.6);
+  transition: border-color 200ms ease;
+}
+
+.resetButton:hover,
+.resetButton:focus-visible {
+  border-color: #ffc987;
+}
+
+.completePanel {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(2, 1, 3, 0.85);
+  backdrop-filter: blur(6px);
+  animation: rise 480ms var(--ease-discover);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completeCard {
+  max-width: 420px;
+  text-align: center;
+}
+
+.completeTitle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #f2e6d4;
+  margin-bottom: 12px;
+}
+
+.completeFact {
+  font-size: 0.86rem;
+  color: #e0bb8a;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.nextButton {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #020103;
+  background: #ffc987;
+  border: 1px solid #ffc987;
+  border-radius: 999px;
+  padding: 9px 18px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.nextButton:hover,
+.nextButton:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px 2px rgba(255, 201, 135, 0.5);
+}

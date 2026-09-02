@@ -16,6 +16,12 @@ import { Clockmaker } from "./experiences/clockmaker/Clockmaker";
 import { Parcel } from "./experiences/parcel/Parcel";
 import { Railway } from "./experiences/railway/Railway";
 import { LittleAlchemist } from "./experiences/little-alchemist/LittleAlchemist";
+import { Ink } from "./experiences/ink/Ink";
+import { Fold } from "./experiences/fold/Fold";
+import { Signal } from "./experiences/signal/Signal";
+import { PlanetHunter } from "./experiences/planet-hunter/PlanetHunter";
+import { Moon } from "./experiences/moon/Moon";
+import { DeepField } from "./experiences/deep-field/DeepField";
 
 export default function App() {
   return (
@@ -36,6 +42,12 @@ export default function App() {
       <Route path="/experience/parcel" element={<Parcel />} />
       <Route path="/experience/railway" element={<Railway />} />
       <Route path="/experience/little-alchemist" element={<LittleAlchemist />} />
+      <Route path="/experience/ink" element={<Ink />} />
+      <Route path="/experience/fold" element={<Fold />} />
+      <Route path="/experience/signal" element={<Signal />} />
+      <Route path="/experience/planet-hunter" element={<PlanetHunter />} />
+      <Route path="/experience/moon" element={<Moon />} />
+      <Route path="/experience/deep-field" element={<DeepField />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

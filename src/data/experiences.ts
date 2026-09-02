@@ -12,15 +12,15 @@ export const experiences: Experience[] = [
 
   // Science
   { id: "stargazer", title: "Stargazer", category: "science", description: "Observe a real patch of night sky. Find what's actually there.", status: "available", motif: "a constellation, emerging from noise", accent: "#FFE29A", route: "/experience/stargazer" },
-  { id: "planet-hunter", title: "Planet Hunter", category: "science", description: "Find planets the way astronomers really do — through evidence.", status: "coming-soon", motif: "a tiny repeating dip in the light", accent: "#5F9BFF" },
-  { id: "moon", title: "Moon", category: "science", description: "Move the Earth, Moon, and Sun. Watch the phases make sense.", status: "coming-soon", motif: "the terminator, sliding across a sphere", accent: "#FFD36B" },
-  { id: "deep-field", title: "Deep Field", category: "science", description: "Look closer at an empty patch of sky. It isn't empty.", status: "coming-soon", motif: "nothing, becoming everything", accent: "#FFC987" },
+  { id: "planet-hunter", title: "Planet Hunter", category: "science", description: "Find planets the way astronomers really do — through evidence.", status: "available", motif: "a tiny repeating dip in the light", accent: "#5F9BFF", route: "/experience/planet-hunter" },
+  { id: "moon", title: "Moon", category: "science", description: "Move the Earth, Moon, and Sun. Watch the phases make sense.", status: "available", motif: "the terminator, sliding across a sphere", accent: "#FFD36B", route: "/experience/moon" },
+  { id: "deep-field", title: "Deep Field", category: "science", description: "Look closer at an empty patch of sky. It isn't empty.", status: "available", motif: "nothing, becoming everything", accent: "#FFC987", route: "/experience/deep-field" },
 
   // Puzzles
   { id: "lockmaker", title: "The Lockmaker", category: "puzzles", description: "Open an invented mechanism by understanding, not force.", status: "available", motif: "a dark case, opened to reveal color", accent: "#B8874E", route: "/experience/lockmaker" },
-  { id: "ink", title: "Ink", category: "puzzles", description: "Guide liquid ink across a page to reveal what's hidden.", status: "coming-soon", motif: "one drop, becoming a landscape", accent: "#354D9B" },
-  { id: "fold", title: "Fold", category: "puzzles", description: "A flat shape contains more possibilities than it shows you.", status: "coming-soon", motif: "a flat plane, folding impossibly", accent: "#5274D8" },
-  { id: "signal", title: "Signal", category: "puzzles", description: "Pull a real pattern out of a field of noise.", status: "coming-soon", motif: "one clean pulse inside static", accent: "#58D7E8" },
+  { id: "ink", title: "Ink", category: "puzzles", description: "Guide liquid ink across a page to reveal what's hidden.", status: "available", motif: "one drop, becoming a landscape", accent: "#354D9B", route: "/experience/ink" },
+  { id: "fold", title: "Fold", category: "puzzles", description: "A flat shape contains more possibilities than it shows you.", status: "available", motif: "a flat plane, folding impossibly", accent: "#5274D8", route: "/experience/fold" },
+  { id: "signal", title: "Signal", category: "puzzles", description: "Pull a real pattern out of a field of noise.", status: "available", motif: "one clean pulse inside static", accent: "#58D7E8", route: "/experience/signal" },
 
   // Interactive art
   { id: "constellation", title: "Constellation", category: "interactive-art", description: "Draw your own relationships between points of light.", status: "coming-soon", motif: "a drawing made of light, briefly", accent: "#718DFF" },
