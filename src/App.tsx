@@ -21,7 +21,10 @@ import { Fold } from "./experiences/fold/Fold";
 import { Signal } from "./experiences/signal/Signal";
 import { PlanetHunter } from "./experiences/planet-hunter/PlanetHunter";
 import { Moon } from "./experiences/moon/Moon";
-import { DeepField } from "./experiences/deep-field/DeepField";
+import { Constellation } from "./experiences/constellation-art/Constellation";
+import { Rain } from "./experiences/rain/Rain";
+import { AncientObservatory } from "./experiences/ancient-observatory/AncientObservatory";
+import { SeriousPotato } from "./experiences/serious-potato/SeriousPotato";
 
 export default function App() {
   return (
@@ -47,7 +50,10 @@ export default function App() {
       <Route path="/experience/signal" element={<Signal />} />
       <Route path="/experience/planet-hunter" element={<PlanetHunter />} />
       <Route path="/experience/moon" element={<Moon />} />
-      <Route path="/experience/deep-field" element={<DeepField />} />
+      <Route path="/experience/constellation" element={<Constellation />} />
+      <Route path="/experience/rain" element={<Rain />} />
+      <Route path="/experience/ancient-observatory" element={<AncientObservatory />} />
+      <Route path="/experience/serious-potato" element={<SeriousPotato />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

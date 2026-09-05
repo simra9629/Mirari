@@ -14,7 +14,6 @@ export const experiences: Experience[] = [
   { id: "stargazer", title: "Stargazer", category: "science", description: "Observe a real patch of night sky. Find what's actually there.", status: "available", motif: "a constellation, emerging from noise", accent: "#FFE29A", route: "/experience/stargazer" },
   { id: "planet-hunter", title: "Planet Hunter", category: "science", description: "Find planets the way astronomers really do — through evidence.", status: "available", motif: "a tiny repeating dip in the light", accent: "#5F9BFF", route: "/experience/planet-hunter" },
   { id: "moon", title: "Moon", category: "science", description: "Move the Earth, Moon, and Sun. Watch the phases make sense.", status: "available", motif: "the terminator, sliding across a sphere", accent: "#FFD36B", route: "/experience/moon" },
-  { id: "deep-field", title: "Deep Field", category: "science", description: "Look closer at an empty patch of sky. It isn't empty.", status: "available", motif: "nothing, becoming everything", accent: "#FFC987", route: "/experience/deep-field" },
 
   // Puzzles
   { id: "lockmaker", title: "The Lockmaker", category: "puzzles", description: "Open an invented mechanism by understanding, not force.", status: "available", motif: "a dark case, opened to reveal color", accent: "#B8874E", route: "/experience/lockmaker" },
@@ -23,8 +22,8 @@ export const experiences: Experience[] = [
   { id: "signal", title: "Signal", category: "puzzles", description: "Pull a real pattern out of a field of noise.", status: "available", motif: "one clean pulse inside static", accent: "#58D7E8", route: "/experience/signal" },
 
   // Interactive art
-  { id: "constellation", title: "Constellation", category: "interactive-art", description: "Draw your own relationships between points of light.", status: "coming-soon", motif: "a drawing made of light, briefly", accent: "#718DFF" },
-  { id: "rain", title: "Rain", category: "interactive-art", description: "Watch rain, redirect it, shelter what needs sheltering.", status: "coming-soon", motif: "a warm light through a wet window", accent: "#E1B76D" },
+  { id: "constellation", title: "Constellation", category: "interactive-art", description: "Draw your own relationships between points of light.", status: "available", motif: "a drawing made of light, briefly", accent: "#718DFF", route: "/experience/constellation" },
+  { id: "rain", title: "Rain", category: "interactive-art", description: "Watch rain, redirect it, shelter what needs sheltering.", status: "available", motif: "a warm light through a wet window", accent: "#E1B76D", route: "/experience/rain" },
   { id: "fireflies", title: "Fireflies", category: "interactive-art", description: "A dark field, and hundreds of small independent lights.", status: "available", motif: "a landscape revealed by tiny lights", accent: "#E6F06C", route: "/experience/fireflies" },
 
   // Tiny worlds
@@ -33,13 +32,13 @@ export const experiences: Experience[] = [
 
   // History
   { id: "lighthouse", title: "The Lighthouse", category: "history", description: "Keep the light. Watch the sea. Respond to what approaches.", status: "available", motif: "one beam, crossing a violent sea", accent: "#F0C76A", route: "/experience/lighthouse" },
-  { id: "ancient-observatory", title: "The Ancient Observatory", category: "history", description: "Track the sky the way people did before telescopes.", status: "coming-soon", motif: "an instrument, aligned with the sky", accent: "#E5A95D" },
+  { id: "ancient-observatory", title: "The Ancient Observatory", category: "history", description: "Track the sky the way people did before telescopes.", status: "available", motif: "an instrument, aligned with the sky", accent: "#E5A95D", route: "/experience/ancient-observatory" },
 
   // Experiments
   { id: "gravity-weaker", title: "What If Gravity Were Weaker?", category: "experiments", description: "Turn the dial down. Watch everything familiar go strange.", status: "available", motif: "a long, slow, wrong-feeling fall", accent: "#7C82FF", route: "/experience/gravity-weaker" },
 
   // Strange things
-  { id: "serious-potato", title: "The Extremely Serious Potato", category: "strange", description: "A potato, treated with the gravity of a priceless artifact.", status: "coming-soon", motif: "one potato, lit like an artifact", accent: "#B99450" },
+  { id: "serious-potato", title: "The Extremely Serious Potato", category: "strange", description: "A potato, treated with the gravity of a priceless artifact.", status: "available", motif: "one potato, lit like an artifact", accent: "#B99450", route: "/experience/serious-potato" },
   { id: "button", title: "Button", category: "strange", description: "There is one button. You are encouraged to press it.", status: "available", motif: "one button, an unreasonable amount of space", accent: "#7C82FF", route: "/experience/button" },
 ];
 

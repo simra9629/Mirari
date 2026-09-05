@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ExperienceLayout } from "../../components/ExperienceLayout";
 import {
   baseMaterials,
   react,
   selfFizzleLines,
   celestialFact,
-  catchAllFact,
+  conditionFact,
+  CONDITIONS,
+  getStage,
+  getUnlockedConditions,
+  nextStage,
+  type ConditionType,
   type Material,
   type ReactionResult,
 } from "./engine";
@@ -22,6 +27,9 @@ export function LittleAlchemist() {
   );
   const [selected, setSelected] = useState<(string | null)[]>([null, null]);
   const [result, setResult] = useState<ResultDisplay>(null);
+  const [condition, setCondition] = useState<ConditionType>("none");
+  const [journalOpen, setJournalOpen] = useState(false);
+  const [dragOverSlot, setDragOverSlot] = useState<number | null>(null);
 
   useEffect(() => {
     if (!selected[0] || !selected[1]) return;
@@ -32,7 +40,7 @@ export function LittleAlchemist() {
       const line = selfFizzleLines[Math.floor(Math.random() * selfFizzleLines.length)];
       setResult({ kind: "self-fizzle", line });
     } else {
-      const outcome = react(a, b, known);
+      const outcome = react(a, b, known, condition);
       if (outcome) {
         if (outcome.isNew) {
           setKnown((prev) => new Map(prev).set(outcome.material.id, outcome.material));
@@ -41,18 +49,18 @@ export function LittleAlchemist() {
       }
     }
 
-    const t = window.setTimeout(() => setSelected([null, null]), 700);
+    const t = window.setTimeout(() => setSelected([null, null]), 900);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
+  }, [selected, condition]);
 
-  function clickElement(id: string) {
+  function placeInSlot(id: string, slotIndex?: number) {
     setSelected((prev) => {
       if (prev.includes(id)) return prev.map((s) => (s === id ? null : s));
-      const emptyIndex = prev.indexOf(null);
-      if (emptyIndex === -1) return prev;
+      const targetIndex = slotIndex ?? prev.indexOf(null);
+      if (targetIndex === -1 || targetIndex === undefined) return prev;
       const next = [...prev];
-      next[emptyIndex] = id;
+      next[targetIndex] = id;
       return next;
     });
   }
@@ -63,11 +71,57 @@ export function LittleAlchemist() {
   }
 
   const discoveredList = Array.from(known.values());
+  const stage = getStage(discoveredList.length);
+  const unlockedConditions = getUnlockedConditions(discoveredList.length);
+  const upcoming = nextStage(discoveredList.length);
+
+  const journalByDepth = useMemo(() => {
+    const groups = new Map<number, Material[]>();
+    for (const m of discoveredList) {
+      const list = groups.get(m.depth) ?? [];
+      list.push(m);
+      groups.set(m.depth, list);
+    }
+    return Array.from(groups.entries()).sort((a, b) => a[0] - b[0]);
+  }, [discoveredList]);
 
   return (
     <ExperienceLayout title="Little Alchemist" category="Game" accent="#F56FA8" background="#120a16">
       <div className={styles.stage}>
-        <p className={styles.progress}>{discoveredList.length} materials discovered</p>
+        <div className={styles.topRow}>
+          <p className={styles.progress}>{discoveredList.length} materials discovered</p>
+          <button type="button" className={styles.journalToggle} onClick={() => setJournalOpen((o) => !o)}>
+            {journalOpen ? "Close journal" : "Open journal"}
+          </button>
+        </div>
+
+        <div className={styles.stageBanner}>
+          <span className={styles.stageName}>{stage.name}</span>
+          <span className={styles.stageFlavor}>{stage.flavor}</span>
+          {upcoming && (
+            <span className={styles.stageNext}>
+              {upcoming.threshold - discoveredList.length} more discoveries until {upcoming.name}
+            </span>
+          )}
+        </div>
+
+        <div className={styles.conditionRow}>
+          {CONDITIONS.map((c) => {
+            const unlocked = unlockedConditions.has(c.id);
+            return (
+              <button
+                key={c.id}
+                type="button"
+                className={`${styles.conditionButton} ${condition === c.id ? styles.conditionActive : ""} ${!unlocked ? styles.conditionLocked : ""}`}
+                onClick={() => unlocked && setCondition(c.id)}
+                disabled={!unlocked}
+                title={unlocked ? c.hint : "Not built yet — keep discovering."}
+              >
+                {unlocked ? c.label : "?"}
+              </button>
+            );
+          })}
+        </div>
 
         <div className={styles.workbench}>
           {[0, 1].map((i) => {
@@ -76,8 +130,19 @@ export function LittleAlchemist() {
             return (
               <div
                 key={i}
-                className={`${styles.slot} ${el ? styles.filled : ""}`}
+                className={`${styles.slot} ${el ? styles.filled : ""} ${dragOverSlot === i ? styles.dragOver : ""}`}
                 style={el ? ({ "--slot-color": el.color } as React.CSSProperties) : undefined}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOverSlot(i);
+                }}
+                onDragLeave={() => setDragOverSlot((s) => (s === i ? null : s))}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOverSlot(null);
+                  const id = e.dataTransfer.getData("text/plain");
+                  if (id) placeInSlot(id, i);
+                }}
               >
                 {el && <span className={styles.slotLabel}>{el.name}</span>}
               </div>
@@ -93,9 +158,7 @@ export function LittleAlchemist() {
                 {result.result.isNew
                   ? result.result.isCelestial
                     ? "New · celestial variant"
-                    : result.result.isCatchAll
-                      ? "New · generated"
-                      : "New discovery"
+                    : "New discovery"
                   : "Already known"}
               </div>
               <div className={styles.resultTitle}>{result.result.material.name}</div>
@@ -103,39 +166,65 @@ export function LittleAlchemist() {
               {result.result.isNew && result.result.isCelestial && (
                 <p className={styles.resultProps}>{celestialFact}</p>
               )}
-              {result.result.isNew && result.result.isCatchAll && (
-                <p className={styles.resultProps}>{catchAllFact}</p>
+              {result.result.isNew && result.result.isConditional && (
+                <p className={styles.resultProps}>{conditionFact}</p>
               )}
               <p className={styles.resultProps}>
                 {result.result.material.state} · {result.result.material.properties.join(", ")}
               </p>
             </>
           )}
-          {!result && (
-            <button type="button" className={styles.clearButton} onClick={clearSlots}>
-              Clear
-            </button>
-          )}
-          {result && (
-            <button type="button" className={styles.clearButton} onClick={clearSlots}>
-              Clear
-            </button>
-          )}
+          <button type="button" className={styles.clearButton} onClick={clearSlots}>
+            Clear
+          </button>
         </div>
 
-        <span className={styles.paletteEyebrow}>Your materials</span>
-        <div className={styles.palette}>
+        {journalOpen && (
+          <div className={styles.journal}>
+            <div className={styles.journalEyebrow}>Discovery journal</div>
+            {journalByDepth.map(([depth, materials]) => (
+              <div key={depth} className={styles.journalGroup}>
+                <div className={styles.journalDepthLabel}>{depth === 0 ? "Base materials" : `Depth ${depth}`}</div>
+                {materials.map((m) => (
+                  <div key={m.id} className={styles.journalEntry}>
+                    <span className={styles.journalSwatch} style={{ background: m.color }} />
+                    <div className={styles.journalText}>
+                      <div className={styles.journalName}>{m.name}</div>
+                      <div className={styles.journalDesc}>{m.description}</div>
+                      {m.firstParents && (
+                        <div className={styles.journalOrigin}>
+                          {m.firstParents[0]} + {m.firstParents[1]}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <span className={styles.paletteEyebrow}>Your materials — drag onto a slot, or click one then another</span>
+        <div className={styles.shelf}>
           {discoveredList.map((el) => {
             const isSelected = selected.includes(el.id);
             return (
               <button
                 key={el.id}
                 type="button"
-                className={`${styles.elementButton} ${isSelected ? styles.selected : ""}`}
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData("text/plain", el.id);
+                  e.dataTransfer.effectAllowed = "copy";
+                }}
+                className={`${styles.bottle} ${isSelected ? styles.selected : ""}`}
                 style={{ "--el-color": el.color } as React.CSSProperties}
-                onClick={() => clickElement(el.id)}
+                onClick={() => placeInSlot(el.id)}
               >
-                <span className={styles.swatch} />
+                <span className={styles.bottleCap} />
+                <span className={styles.bottleGlass}>
+                  <span className={styles.bottleLiquid} />
+                </span>
                 <span className={styles.elementName}>{el.name}</span>
               </button>
             );

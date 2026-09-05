@@ -4,15 +4,9 @@ A curated collection of small interactive wonders — games, puzzles,
 simulations, interactive art, and stranger things — each one a small
 world worth interacting with.
 
-This slice of the project has the **archive shell** (the dark,
-spacious homepage that every experience lives inside) plus
-twenty-one working experiences: **Stargazer**, **The Lockmaker**,
-**Fireflies**, **Ant Colony**, **What If Gravity Were Weaker?**,
-**Orbit**, **The Lighthouse**, **Button**, **Tidepool**,
-**The Last Firefly**, **Paper City**, **The Clockmaker**, **Parcel**,
-**The Railway**, **Little Alchemist**, **Ink**, **Fold**, **Signal**,
-**Planet Hunter**, **Moon**, and **Deep Field**. Games, Puzzles, and
-Science are all fully built.
+**Every experience in the catalogue is now built.** 24 out of 24.
+The archive shell (the dark, spacious homepage that every experience
+lives inside) has no "coming soon" cards left.
 
 ## Run it
 
@@ -37,35 +31,33 @@ src/
 │   └── NotFound.tsx
 │
 ├── experiences/         Every experience is its own isolated module
-│   ├── stargazer/        A complete, procedurally generated campaign
-│   │   ├── Stargazer.tsx
-│   │   ├── constellations.ts   All 88 IAU constellations (shape data)
-│   │   ├── campaign.ts         Generates every level's parameters on demand
-│   │   └── placement.ts        Lays constellations + distractors into a level
-│   ├── lockmaker/        Ten procedurally-generated mechanism types
-│   │   ├── Lockmaker.tsx
-│   │   └── data.ts        Seeded generator for all ten lock types
-│   ├── fireflies/        A dark field of light that follows your cursor
-│   ├── ant-colony/       An emergent ant simulation — no scripted paths
-│   ├── gravity/          A physics sandbox — drop things, change the pull
-│   ├── orbit/            A real two-body gravity sandbox — launch, don't crash
-│   ├── lighthouse/       Aim a beam, watch ships find their way
-│   ├── button/           There is one button
-│   ├── tidepool/         A tide that rises and falls on its own
-│   ├── last-firefly/     A real generated maze, lit only near you
-│   │   └── maze.ts         Recursive-backtracker maze generator
-│   ├── paper-city/       Rotate city blocks until every road connects
-│   ├── clockmaker/       One key, several gears, fixed ratios
-│   ├── parcel/           Plan a route: pickup, then dropoff
-│   ├── railway/          An endless, turn-based track-building game
-│   ├── little-alchemist/ Property-based reaction engine, not a recipe table
-│   │   └── engine.ts       States, properties, general rules, catch-all generation
-│   ├── ink/               A limited ink budget, a hidden shape to reveal
+│   ├── stargazer/          An endless, procedurally generated campaign across all 88 constellations
+│   │   └── constellations.ts, campaign.ts, placement.ts
+│   ├── lockmaker/          Ten procedurally-generated lock mechanism types
+│   ├── fireflies/          A dark field of light that follows your cursor
+│   ├── ant-colony/         An emergent ant/pheromone simulation
+│   ├── gravity/            A physics sandbox — drop things, change the pull
+│   ├── orbit/              Real two-body gravity — launch, don't crash
+│   ├── lighthouse/         Aim a beam, watch ships find their way
+│   ├── button/             There is one button
+│   ├── tidepool/           A tide that rises and falls on its own
+│   ├── last-firefly/       A real generated maze, lit only near you
+│   │   └── maze.ts           Recursive-backtracker maze generator
+│   ├── paper-city/         Rotate city blocks until every road connects
+│   ├── clockmaker/         One key, several gears, fixed ratios
+│   ├── parcel/             Plan a route: pickup, then dropoff
+│   ├── railway/            An endless, turn-based track-building game
+│   ├── little-alchemist/   Property-based reaction engine, not a recipe table
+│   │   └── engine.ts          States, properties, rules, lab stage progression
+│   ├── ink/                A limited ink budget, a hidden shape to reveal
 │   ├── fold/               A strip of panels, folded in half repeatedly
 │   ├── signal/             Tune a dial until static resolves into a pattern
 │   ├── planet-hunter/      Find the repeating dip in a noisy light curve
 │   ├── moon/               Drag the Moon around its orbit, watch phases follow
-│   └── deep-field/         Click to zoom — a "blank" patch reveals galaxies
+│   ├── constellation-art/  Draw your own connections between stars — they fade
+│   ├── rain/               Wipe a fogged window; the fog always comes back
+│   ├── ancient-observatory/ Move the sun, read the time from a shadow
+│   └── serious-potato/     A potato, exhibited with total institutional gravity
 │
 ├── components/          Shared archive-level UI
 │   ├── Logo.tsx                 The signature mark + wordmark
@@ -87,45 +79,43 @@ src/
 
 ## Philosophy: generated, not hand-built
 
-Everything in this slice that *can* scale procedurally, does — the
-goal is that adding depth to an experience should mean editing a
-generator or a data table, never writing a new hand-tuned level.
+Wherever it's possible, content is generated by a system rather than
+authored level-by-level:
 
-**Stargazer**'s campaign (`campaign.ts`) has no fixed length or level
-list — it generates field size, distractor count, which constellations
-appear, and the prompt text from the level number alone.
-`constellations.ts` now has **all 88 IAU constellations**, each with
-real stars in a real relative arrangement (stylized, not a precise
-star chart) and one real fact. That part had to be hand-authored —
-astronomy doesn't procedurally generate — but everything about which
-ones appear, when, and how many at once is generated by the campaign.
+- **Stargazer** — no fixed level list; `campaign.ts` generates field
+  size, distractor count, which of the 88 constellations appear, and
+  the prompt text purely from the level number.
+- **The Lockmaker** — ten mechanism types, all produced by one seeded
+  generator function; every type gets harder every time it recurs.
+- **The Last Firefly** / **Paper City** — share one recursive-
+  backtracker maze/spanning-tree generator, used for two unrelated
+  puzzles (real-time exploration vs. rotate-to-connect).
+- **Little Alchemist** — no recipe table at all. Materials carry a
+  state and a set of properties; general rules match on those
+  properties (`hot + flammable → Ash` fires for *any* qualifying
+  pair). A catch-all rule generates a name/description/color for
+  anything that doesn't hit a named rule, so nearly every combination
+  succeeds — verified directly: 595 out of 595 possible pairs among
+  the first 35 discovered materials.
+- **Deep-field-style hashing** (Railway's terrain, Ant Colony's
+  pheromones) — deterministic coordinate hashing instead of stored
+  maps, so the same "world" holds together at any scale or position
+  without needing to remember it.
 
-**The Lockmaker** cycles through **ten** mechanism types, one per
-level, all generated by a seeded function in `data.ts`
-(`generateMechanism(level)`). Every time a type comes back around, it
-gets harder. The ten types are mechanically distinct, not re-skins:
+The exceptions are the places where the *content itself* has to be a
+creative decision — Little Alchemist's rules, each puzzle's fact
+text, Little Alchemist's laboratory-stage flavor lines. Systems are
+generated; specific meaning is still written.
 
-- **Pin Tumbler** — pins wrap forever; find the height that catches
-- **Lever Lock** — overshoot the gate and it jams and resets
-- **Wafer Tumbler** — flat wafers, just up or down
-- **Disc Detainer** — rotating discs instead of rising pins
-- **Combination Dial** — one shared dial, a hidden number sequence
-- **Warded Lock** — set every notch, then test all at once; you learn
-  only *how many* cleared, never which
-- **Tubular Lock** — pin logic, but arranged in a ring
-- **Wheel Combination** — digit wheels (0–9), the bike-lock kind
-- **Magnetic Lock** — continuous sliders, each with a narrow hidden
-  sweet spot rather than discrete steps
-- **Electronic Keypad** — enter a full code, get Mastermind-style
-  feedback (how many exact, how many right-digit-wrong-position)
-
-## The twenty-one experiences
+## The 24 experiences
 
 **Stargazer** — an endless, generated campaign across all 88 named
 constellations, with "spot the planet" rounds mixed in.
 
-**The Lockmaker** — ten mechanism types (above), procedurally
-generated and increasingly complex.
+**The Lockmaker** — ten mechanism types (Pin Tumbler, Lever Lock,
+Wafer Tumbler, Disc Detainer, Combination Dial, Warded Lock, Tubular
+Lock, Wheel Combination, Magnetic Lock, Electronic Keypad),
+procedurally generated and increasingly complex.
 
 **Fireflies** — no objective. A canvas field of ~120 small lights
 that wander on their own and follow your cursor.
@@ -140,103 +130,108 @@ drop balls, watch the physics respond live.
 under real inverse-square gravity.
 
 **The Lighthouse** — drag to aim a beam at ships crossing the sea;
-hold it on one long enough and it's "guided". No fail state — this
-one's ambient, not a game to lose.
+hold it on one long enough and it's "guided." No fail state.
 
 **Button** — there is one button. Pressing it does nothing, in a
-different way each time, drawn from a shuffled bank of reactions so
-you don't see the same line twice in a row — plus a few milestone
-reactions at round numbers.
+different way each time, drawn from a shuffled bank of reactions.
 
 **Tidepool** — the tide rises and falls on its own; crabs come out
 onto the exposed rocks at low tide and duck away as the water
-returns, fish stay submerged and dart off if you click near one.
+returns.
 
 **The Last Firefly** — a real maze, generated fresh each level via
 recursive backtracking. Your light only reaches so far; the goal is
-a faint, barely-visible glimmer somewhere out in the dark. Arrow
-keys/WASD or swipe to move.
+a faint, barely-visible glimmer somewhere out in the dark.
 
-**Paper City** — a grid of road tiles, each scrambled to a random
-rotation. Click to rotate a tile 90°; a road lights gold exactly
-when both sides of a shared edge actually connect. The underlying
-network is generated with the same spanning-tree algorithm as the
-maze — reused for a completely different puzzle.
+**Paper City** — a grid of road tiles, scrambled to random rotations.
+Click to rotate a tile 90°; a road lights gold exactly when both
+sides of a shared edge connect. Reuses The Last Firefly's maze
+generator for a completely different puzzle.
 
 **The Clockmaker** — a gear train where one shared control drives
 every gear at its own fixed ratio. You can't set any gear directly —
-only turn the key and search for the count where all of them land on
-their mark simultaneously. Deliberately not another "cycle each pin
-independently" puzzle like Lockmaker's.
+only find the turn count where all of them land on target at once.
 
-**Parcel** — plan a delivery route on an open grid (no fog, unlike
-The Last Firefly): click adjacent cells to build a path, reach the
-pickup before the dropoff counts. Obstacle layouts are generated per
-level and verified solvable via a real BFS reachability check before
-they're ever shown to you.
+**Parcel** — plan a delivery route on an open grid: click adjacent
+cells to build a path, reach the pickup before the dropoff counts.
+Obstacle layouts are verified solvable via a real BFS check.
 
-**The Railway** — no levels, no fixed destination — pick between two
-randomly-offered track pieces (straight or curved) each turn and the
-track just keeps growing, passing through procedurally-named towns
-every few pieces. The background terrain is scattered using a
-deterministic hash of world coordinates rather than a stored map, so
-the landscape works the same whether you've placed 6 pieces or 600.
+**The Railway** — no fixed destination — pick between two
+randomly-offered track pieces each turn and the track just keeps
+growing, through procedurally-named towns every few pieces.
 
-**Little Alchemist** — no recipe table anymore. Every material is data
-— a state (solid, liquid, gas, powder, organic, crystalline, energy)
-and a handful of properties (hot, cold, wet, dry, organic, celestial,
-and so on) — and combinations are resolved by general rules that
-match on those properties, not on which two specific ingredients you
-picked. "Anything hot + anything flammable → Ash" covers every pair
-that happens to qualify, the same way "anything celestial + anything
-else → a lunar variant of it" is one rule that produces Lunar Ember,
-Lunar Tide, Lunar Frost, and more. Combinations that don't hit a
-named rule still succeed through a catch-all that builds a name and
-description from the two materials' own properties — tested by
-actually combining every possible pair among the first 35 discovered
-materials: 595 out of 595 succeeded. This is the exception to
-"generated, not hand-built" only in that the *rules* were designed by
-hand — the materials, names, and outcomes are genuinely generated by
-those rules, not looked up.
+**Little Alchemist** — a genuine property-based reaction engine (see
+below), with environmental conditions, a discovery journal, and a
+laboratory that progresses through 7 stages as you discover more.
 
-**Ink** — a hidden shape (generated from overlapping circles) sits
-under a blank grid; you have a limited number of ink drops, each
-revealing a small radius wherever you place it. Reveal enough of the
-shape before you run out.
+**Ink** — a hidden shape (blob, ring, or zigzag, depending on level)
+sits under a blank grid; a shrinking budget of ink drops reveals it.
 
-**Fold** — a real strip-folding simulation, not a re-skin. A row of
-panels halves with every fold; you choose which side folds over the
-other. The target is always brute-force verified achievable before
-it's shown to you, by enumerating every possible sequence of fold
-directions.
+**Fold** — a real strip-folding simulation. A row of panels halves
+with every fold; every target is brute-force verified achievable.
 
-**Signal** — one slider, and a grid that looks like pure static.
-Turning the dial blends a hidden ring pattern in against the noise —
-the closer you get to the right frequency, the more the picture
-resolves, like tuning an old radio or an analog TV.
+**Signal** — one slider, a grid of pure static. Four different hidden
+pattern types (rings, grid, spiral, stripes) resolve as you tune in.
 
-**Planet Hunter** — a real light curve: mostly noise, with a genuine
-periodic dip pattern buried in it. Click every dip that repeats at a
-consistent interval to confirm a planet — exactly the transit method
-real astronomers use, down to requiring the dip to repeat before it
-counts.
+**Planet Hunter** — a real light curve, mostly noise, with a genuine
+periodic dip pattern and several decoy one-off dips that don't
+repeat — the actual transit method astronomers use.
 
-**Moon** — drag the Moon around its orbit and watch two views update
-together: a top-down Earth/Moon/Sun diagram, and what an observer on
-Earth would actually see. Both are driven by the same orbital angle
-and the same phase-rendering function — there's no separate "fake"
-phase animation, the shape is computed, not scripted.
+**Moon** — drag the Moon around its orbit; two linked views (a
+top-down diagram and what you'd see from Earth) are driven by one
+shared, mathematically-correct phase calculation.
 
-**Deep Field** — click anywhere to zoom into a patch of "empty" sky.
-Every zoom both magnifies and lowers the brightness threshold for
-what's rendered, so fainter galaxies keep appearing the deeper you
-go — a small, playable version of what the actual Hubble Deep Field
-did with a very long exposure instead of a mouse click.
+**Constellation** — drag between stars to connect them into whatever
+shape you want. No right answer, and every line fades after a while.
+
+**Rain** — rain falls past a fogged window with warm light behind
+it; drag to wipe a clear streak. The fog slowly returns on its own.
+
+**The Ancient Observatory** — drag the sun across the sky and read
+the time from a gnomon's shadow — the same geometry a real sundial
+uses, including the shadow lengthening near dawn and dusk.
+
+**The Extremely Serious Potato** — a potato, spotlit on a pedestal
+behind a velvet rope, with an absurdly self-serious museum placard.
+Click it for another line; drag it to turn it.
 
 All continuous simulations (Fireflies, Ant Colony, Gravity, Orbit,
 The Lighthouse, Tidepool, The Last Firefly, The Railway, Signal,
-Deep Field) respect `prefers-reduced-motion` by freezing
+Constellation, Rain) respect `prefers-reduced-motion` by freezing
 ongoing/animated movement.
+
+## Little Alchemist, in more detail
+
+Every material has a `state` (solid, liquid, gas, powder, organic,
+crystalline, energy) and a set of `properties` (hot, cold, wet, dry,
+organic, celestial, flammable, and so on). Reactions are resolved by
+general rules matching on those properties — "anything celestial +
+anything else → a lunar variant of it" is one rule that produces
+Lunar Ember, Lunar Tide, Lunar Frost, and more, the same way it would
+in the design doc's own headline example.
+
+Four environmental conditions (Heat, Cool, Grind, Wait) inject their
+own property into the mix before any rule runs, so the same two
+materials can produce different results — Tide + Root normally makes
+Moss, but under Heat it makes Ash instead. Wait only does something
+when paired with something celestial or luminous (a one-off rule
+produces "Yesterday"); otherwise it's inert, so it's worth actually
+discovering rather than a fourth default choice.
+
+The laboratory itself progresses through 7 named stages tied to
+discovery count (Workbench → Furnace → Grinding Table → Greenhouse →
+Advanced Apparatus → Astronomical Wing → The Impossible Wing), and
+the four conditions unlock gradually alongside it rather than all
+being available on day one. A discovery journal lists every material
+grouped by how many reactions removed it is from the base 8, each
+with the specific pair that first produced it. The workbench accepts
+real drag-and-drop, and shelf items are styled as small corked
+bottles with a colored fill level.
+
+This is the one place that's an exception to "generated, not
+hand-built" in that the *rules* were designed by hand — the
+materials, names, and outcomes are genuinely generated by those
+rules at runtime, not looked up in a table.
 
 ## Visual identity
 
@@ -258,33 +253,22 @@ duration; that field was dropped from the `Experience` type entirely.
    and a `route` once it's playable.
 3. Add a `<Route>` for it in `src/App.tsx`.
 
-## Adding/editing a constellation
-
-Edit the `constellations` array in
-`src/experiences/stargazer/constellations.ts` — an id, a name, a fact,
-stars with local `x`/`y` coordinates (0–1), and which star ids connect
-for the reveal lines. All 88 are in there now; this is mostly a place
-to refine shapes, not add new entries.
-
-## Adding a Lockmaker mechanism type
-
-Add a new branch to the `Mechanism` union and `generateMechanism` in
-`src/experiences/lockmaker/data.ts`, add its label/intro/fact text,
-and add a rendering branch in `MechanismInterior` in `Lockmaker.tsx`.
-It'll automatically take its turn in the type rotation. Lock types
-aren't a fixed catalogue the way constellations are — there's room for
-more (multi-layer combination safes, biometric-style pattern locks,
-whatever fits the mechanical-puzzle feel).
+There's no catalogue row left with `status: "coming-soon"` right now
+— any new experience is a genuinely new addition, not filling in a
+gap.
 
 ## Not built yet
 
-This slice deliberately stops short of the full spec:
+This slice deliberately stops short of the full original spec beyond
+the 24-experience catalogue:
 
-- 21 of 26 catalogued experiences are playable; the rest render as
-  "coming soon" cards. Games, Puzzles, and Science are now fully
-  built — every remaining "coming soon" card is in Tiny Worlds,
-  Interactive Art, History, or Strange Things.
-- No page-transition choreography per experience yet (section 11 of
-  the visual identity doc).
+- No page-transition choreography per experience (section 11 of the
+  visual identity doc — each experience entering/exiting its own
+  way). Currently a plain route change.
 - No audio system wired up yet.
 - No backend — everything is static/frontend-only for now.
+- Little Alchemist doesn't yet have the fully illustrated physical
+  laboratory environment (hand-painted textures, GSAP animation,
+  Web Audio) described in its design doc — the property-based
+  engine, conditions, journal, and stage progression are built; the
+  art direction is a lighter, scoped pass rather than full production.
