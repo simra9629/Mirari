@@ -280,6 +280,11 @@
   flex-shrink: 0;
 }
 
+.journalText {
+  flex: 1;
+  min-width: 0;
+}
+
 .journalName {
   font-size: 0.8rem;
   color: var(--mirari-text);

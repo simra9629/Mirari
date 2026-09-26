@@ -1,0 +1,99 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #1c2418;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(340px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(201, 161, 90, 0.3);
+  background: rgba(28, 36, 24, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.toolButton {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mirari-text-muted);
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 161, 90, 0.3);
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.toolButton:hover,
+.toolButton:focus-visible {
+  color: var(--mirari-text);
+}
+
+.toolActive {
+  color: #1c2418;
+  background: #c9a15a;
+  border-color: #c9a15a;
+}
+
+.readout {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--mirari-text-faint);
+  margin-bottom: 6px;
+}
+
+.commute {
+  font-size: 0.74rem;
+  color: var(--mirari-text-muted);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.resetButton {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(201, 161, 90, 0.3);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.resetButton:hover,
+.resetButton:focus-visible {
+  color: var(--mirari-text);
+  border-color: rgba(201, 161, 90, 0.6);
+}

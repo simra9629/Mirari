@@ -13,8 +13,20 @@ export interface LevelInstance {
 
 // Small seeded RNG — deterministic, so the same level always generates
 // the same content, but nothing here is hand-picked per level.
+// Scrambles the seed before it enters the LCG below. A plain LCG's very
+// first output is a smooth function of the seed, so sequential seeds
+// (level * k + c) would otherwise produce long runs of near-identical
+// early results — this hash breaks that up.
+function hashSeed(n: number): number {
+  let x = n | 0;
+  x = Math.imul(x ^ (x >>> 16), 2246822507);
+  x = Math.imul(x ^ (x >>> 13), 3266489909);
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
 function makeRng(seed: number) {
-  let s = seed % 2147483647;
+  let s = hashSeed(seed) % 2147483647;
   if (s <= 0) s += 2147483646;
   return () => {
     s = (s * 16807) % 2147483647;

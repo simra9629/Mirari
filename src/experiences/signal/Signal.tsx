@@ -9,7 +9,9 @@ export function Signal() {
   const puzzle = useMemo(() => generateSignalPuzzle(level), [level]);
   const [freq, setFreq] = useState(50);
   const freqRef = useRef(freq);
-  freqRef.current = freq;
+  useEffect(() => {
+    freqRef.current = freq;
+  }, [freq]);
   const [complete, setComplete] = useState(false);
   const completeRef = useRef(false);
   useEffect(() => {

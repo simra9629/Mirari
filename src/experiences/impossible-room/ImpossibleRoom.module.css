@@ -1,0 +1,126 @@
+.stage {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 24px 60px;
+  background: radial-gradient(ellipse at 50% 20%, #171922 0%, #111318 70%);
+}
+
+.topBar {
+  width: min(420px, 92vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.caseLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6277d8;
+}
+
+.viewLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8891ab;
+}
+
+.roomFrame {
+  width: min(420px, 92vw);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(98, 119, 216, 0.25);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hotspot {
+  cursor: pointer;
+}
+
+.hotspot:hover {
+  filter: brightness(1.3);
+}
+
+.caption {
+  max-width: 420px;
+  min-height: 2.4em;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.button {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mirari-text);
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(98, 119, 216, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 160ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: #6277d8;
+}
+
+.progress {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--mirari-text-faint);
+}
+
+.resolvedPanel {
+  max-width: 400px;
+  text-align: center;
+  padding: 18px 22px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(98, 119, 216, 0.4);
+  background: rgba(20, 22, 30, 0.85);
+}
+
+.resolvedText {
+  font-size: 0.84rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.resetButton {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #111318;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #6277d8;
+  transition: opacity 160ms ease;
+}
+
+.resetButton:hover,
+.resetButton:focus-visible {
+  opacity: 0.85;
+}

@@ -1,0 +1,82 @@
+.stage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: radial-gradient(ellipse at 50% 30%, #1c1e26 0%, #14161c 75%);
+  padding: 24px;
+}
+
+.sheetArea {
+  width: min(320px, 80vw);
+  aspect-ratio: 320 / 400;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.caption {
+  max-width: 360px;
+  min-height: 2.6em;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.button {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(199, 209, 223, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 160ms ease, opacity 160ms ease;
+}
+
+.button:hover:not(:disabled),
+.button:focus-visible:not(:disabled) {
+  border-color: #c7d1df;
+}
+
+.button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.buttonGhost {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px dashed rgba(199, 209, 223, 0.25);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.buttonGhost:hover,
+.buttonGhost:focus-visible {
+  color: var(--mirari-text);
+  border-color: rgba(199, 209, 223, 0.5);
+}

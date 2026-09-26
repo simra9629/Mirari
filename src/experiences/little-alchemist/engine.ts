@@ -61,14 +61,14 @@ function hasBoth(props: Set<Property>, propA: Property, propB: Property): boolea
 }
 
 export const baseMaterials: Material[] = [
-  { id: "ember", name: "Ember", description: "A coal that never fully cools.", emoji: "🔥", state: "energy", properties: ["hot", "luminous", "volatile"], color: "#e6754d", depth: 0, base: true },
-  { id: "frost", name: "Frost", description: "Cold enough to slow a held breath.", emoji: "❄️", state: "solid", properties: ["cold", "crystalline"], color: "#7ec8e3", depth: 0, base: true },
-  { id: "root", name: "Root", description: "Grows toward whatever it's given.", emoji: "🌱", state: "organic", properties: ["organic", "living", "earthy", "flammable"], color: "#7a9e5f", depth: 0, base: true },
-  { id: "tide", name: "Tide", description: "Water that remembers the moon.", emoji: "🌊", state: "liquid", properties: ["wet"], color: "#3f7ea6", depth: 0, base: true },
-  { id: "gale", name: "Gale", description: "Wind that carries more than air.", emoji: "🌬️", state: "gas", properties: ["airy", "volatile"], color: "#c7d1d8", depth: 0, base: true },
-  { id: "glimmer", name: "Glimmer", description: "A light with no visible source.", emoji: "✨", state: "energy", properties: ["luminous", "celestial"], color: "#b6b9ff", depth: 0, base: true },
-  { id: "stone", name: "Stone", description: "Patient. Has nowhere else to be.", emoji: "🪨", state: "solid", properties: ["earthy", "dense"], color: "#9a938a", depth: 0, base: true },
-  { id: "dust", name: "Dust", description: "Everything, eventually, in small enough pieces.", emoji: "🌫️", state: "powder", properties: ["earthy", "dry"], color: "#c2b8a3", depth: 0, base: true },
+  { id: "ember", name: "Ember", description: "A coal that never fully cools.", emoji: "☲", state: "energy", properties: ["hot", "luminous", "volatile"], color: "#e6754d", depth: 0, base: true },
+  { id: "frost", name: "Frost", description: "Cold enough to slow a held breath.", emoji: "❅", state: "solid", properties: ["cold", "crystalline"], color: "#7ec8e3", depth: 0, base: true },
+  { id: "root", name: "Root", description: "Grows toward whatever it's given.", emoji: "✤", state: "organic", properties: ["organic", "living", "earthy", "flammable"], color: "#7a9e5f", depth: 0, base: true },
+  { id: "tide", name: "Tide", description: "Water that remembers the moon.", emoji: "☵", state: "liquid", properties: ["wet"], color: "#3f7ea6", depth: 0, base: true },
+  { id: "gale", name: "Gale", description: "Wind that carries more than air.", emoji: "☴", state: "gas", properties: ["airy", "volatile"], color: "#c7d1d8", depth: 0, base: true },
+  { id: "glimmer", name: "Glimmer", description: "A light with no visible source.", emoji: "☆", state: "energy", properties: ["luminous", "celestial"], color: "#b6b9ff", depth: 0, base: true },
+  { id: "stone", name: "Stone", description: "Patient. Has nowhere else to be.", emoji: "☶", state: "solid", properties: ["earthy", "dense"], color: "#9a938a", depth: 0, base: true },
+  { id: "dust", name: "Dust", description: "Everything, eventually, in small enough pieces.", emoji: "▦", state: "powder", properties: ["earthy", "dry"], color: "#c2b8a3", depth: 0, base: true },
 ];
 
 interface ReactionRule {
@@ -94,7 +94,7 @@ const RULES: ReactionRule[] = [
     name: "Yesterday",
     description: "A moment that should already be over, kept a little too long.",
     color: "#7a6b9a",
-    emoji: "⏳",
+    emoji: "⧗",
   },
   {
     id: "combustion",
@@ -104,7 +104,7 @@ const RULES: ReactionRule[] = [
     name: "Ash",
     description: "What's left when something that could burn, finally did.",
     color: "#8a8580",
-    emoji: "🩶",
+    emoji: "▨",
   },
   {
     id: "glass",
@@ -114,7 +114,7 @@ const RULES: ReactionRule[] = [
     name: "Glass",
     description: "Fire and cold, shocked into something clear.",
     color: "#a9d4e0",
-    emoji: "🔷",
+    emoji: "◈",
   },
   {
     id: "vaporize",
@@ -124,7 +124,7 @@ const RULES: ReactionRule[] = [
     name: "Steam",
     description: "Water, given enough heat to stop sitting still.",
     color: "#d8dee2",
-    emoji: "💨",
+    emoji: "≋",
   },
   {
     id: "freeze",
@@ -134,7 +134,7 @@ const RULES: ReactionRule[] = [
     name: "Ice",
     description: "Water, convinced to hold still.",
     color: "#bfe6f5",
-    emoji: "🧊",
+    emoji: "❆",
   },
   {
     id: "melt",
@@ -144,7 +144,7 @@ const RULES: ReactionRule[] = [
     name: "Magma",
     description: "Stone that hasn't decided what shape to keep.",
     color: "#c1441f",
-    emoji: "🌋",
+    emoji: "◆",
   },
   {
     id: "rime",
@@ -154,7 +154,7 @@ const RULES: ReactionRule[] = [
     name: "Rime",
     description: "Frost, settling into every last crack.",
     color: "#dbe9ec",
-    emoji: "🥶",
+    emoji: "❄︎",
   },
   {
     id: "erode",
@@ -164,7 +164,7 @@ const RULES: ReactionRule[] = [
     name: "Sandstorm",
     description: "Stone, worn small enough to fly.",
     color: "#d8c48a",
-    emoji: "🏜️",
+    emoji: "▩",
   },
   {
     id: "growth",
@@ -174,7 +174,7 @@ const RULES: ReactionRule[] = [
     name: "Moss",
     description: "Something patient, finally given water.",
     color: "#5c7a4a",
-    emoji: "🌿",
+    emoji: "❋",
   },
   {
     id: "clay",
@@ -184,7 +184,7 @@ const RULES: ReactionRule[] = [
     name: "Clay",
     description: "Stone, still deciding what to become.",
     color: "#b3765a",
-    emoji: "🏺",
+    emoji: "▤",
   },
   {
     id: "wisp",
@@ -194,7 +194,7 @@ const RULES: ReactionRule[] = [
     name: "Wisp",
     description: "Wind, given just enough light to be seen.",
     color: "#dce4ff",
-    emoji: "👻",
+    emoji: "✧",
   },
   {
     id: "sand",
@@ -204,7 +204,7 @@ const RULES: ReactionRule[] = [
     name: "Sand",
     description: "Stone and dust, agreeing on a smaller size.",
     color: "#d9c9a3",
-    emoji: "🏖️",
+    emoji: "▥",
   },
   {
     id: "storm",
@@ -214,7 +214,7 @@ const RULES: ReactionRule[] = [
     name: "Storm",
     description: "Wind and water, arguing at once.",
     color: "#4a5a75",
-    emoji: "⛈️",
+    emoji: "☳",
   },
   {
     id: "compost",
@@ -224,7 +224,7 @@ const RULES: ReactionRule[] = [
     name: "Compost",
     description: "Something green, taking its time to become soil.",
     color: "#6b5d45",
-    emoji: "🍂",
+    emoji: "✱",
   },
   {
     id: "frostbloom",
@@ -234,7 +234,7 @@ const RULES: ReactionRule[] = [
     name: "Frostbloom",
     description: "A flower that only opens in the cold.",
     color: "#cfe8f0",
-    emoji: "🌷",
+    emoji: "✥",
   },
 ];
 
@@ -257,21 +257,21 @@ const PROPERTY_WORDS: Partial<Record<Property, { adj: string; noun: string }>> =
 };
 
 const PROPERTY_EMOJI: Partial<Record<Property, string>> = {
-  hot: "🔥",
-  cold: "❄️",
-  wet: "💧",
-  dry: "🏜️",
-  airy: "💨",
-  earthy: "🪨",
-  dense: "⚙️",
-  organic: "🌿",
-  living: "🌱",
-  luminous: "✨",
-  celestial: "🌙",
-  crystalline: "💎",
-  volatile: "⚡",
-  flammable: "🔥",
-  temporal: "⏳",
+  hot: "☲",
+  cold: "❆",
+  wet: "≈",
+  dry: "▦",
+  airy: "☴",
+  earthy: "☷",
+  dense: "▲",
+  organic: "❋",
+  living: "✤",
+  luminous: "☆",
+  celestial: "☾",
+  crystalline: "◈",
+  volatile: "☳",
+  flammable: "▼",
+  temporal: "⧗",
 };
 
 function blendColor(c1: string, c2: string): string {
@@ -286,12 +286,6 @@ function blendColor(c1: string, c2: string): string {
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
-
-export const celestialFact =
-  "A single rule — anything celestial paired with anything else — is why Moon touching Water, Ink, or Moss each produce their own kind of moonlit variant instead of needing three separate recipes.";
-
-export const catchAllFact =
-  "This one didn't come from a written recipe — it's a general rule reading both materials' properties and building something new from them, the same way every other discovery here works underneath.";
 
 export interface ReactionResult {
   material: Material;
@@ -360,7 +354,7 @@ export function react(
         id,
         name,
         description: `${other.name}, touched by something celestial.`,
-        emoji: "🌙",
+        emoji: "☾",
         state: other.state,
         properties: Array.from(new Set([...other.properties, "luminous", "celestial"])),
         color: blendColor(other.color, "#b6b9ff"),
@@ -381,7 +375,7 @@ export function react(
   const noun = (bProp && PROPERTY_WORDS[bProp]?.noun) ?? capitalize(b.name);
   const name = `${adj} ${noun}`;
   const id = slug(name);
-  const emoji = (bProp && PROPERTY_EMOJI[bProp]) ?? (aProp && PROPERTY_EMOJI[aProp]) ?? "🧪";
+  const emoji = (bProp && PROPERTY_EMOJI[bProp]) ?? (aProp && PROPERTY_EMOJI[aProp]) ?? "◇";
 
   return finalize(
     id,

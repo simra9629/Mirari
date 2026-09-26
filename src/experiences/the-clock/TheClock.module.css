@@ -1,0 +1,112 @@
+.stage {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 28px 24px;
+  background: radial-gradient(ellipse at 50% 25%, #161c28 0%, #0b0f18 72%);
+}
+
+.eraTabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.eraTab {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.eraTab:hover,
+.eraTab:focus-visible {
+  color: var(--mirari-text);
+}
+
+.eraTabActive {
+  color: var(--mirari-text);
+  border-color: var(--clock-accent, #8fa6c9);
+  background: color-mix(in srgb, var(--clock-accent, #8fa6c9) 16%, transparent);
+}
+
+.display {
+  width: min(300px, 78vw);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+}
+
+.digital {
+  font-family: var(--font-mono);
+  font-size: 3.4rem;
+  letter-spacing: 0.05em;
+  color: #dce8f5;
+  padding: 22px 30px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(143, 166, 201, 0.35);
+  background: rgba(10, 14, 22, 0.7);
+}
+
+.caption {
+  max-width: 380px;
+  text-align: center;
+  font-size: 0.84rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+}
+
+.timeControls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(420px, 100%);
+}
+
+.playButton {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text);
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: border-color 160ms ease;
+}
+
+.playButton:hover,
+.playButton:focus-visible {
+  border-color: var(--clock-accent, #8fa6c9);
+}
+
+.slider {
+  flex: 1;
+  accent-color: var(--clock-accent, #8fa6c9);
+}
+
+.timeReadout {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--mirari-text);
+  min-width: 78px;
+  text-align: right;
+}

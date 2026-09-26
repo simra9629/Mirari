@@ -8,12 +8,15 @@ export function ExperienceLayout({
   category,
   accent,
   background,
+  light,
   children,
 }: {
   title: string;
   category: string;
   accent: string;
   background?: string;
+  /** Set when the experience's own background is light — flips the chrome text to dark. */
+  light?: boolean;
   children: ReactNode;
 }) {
   const wrapStyle = {
@@ -22,7 +25,7 @@ export function ExperienceLayout({
   } as React.CSSProperties;
 
   return (
-    <div className={styles.wrap} style={wrapStyle}>
+    <div className={`${styles.wrap} ${light ? styles.light : ""}`} style={wrapStyle}>
       <div className={styles.chrome}>
         <Link to="/" className={styles.back}>
           <Mark size={18} /> Mirari

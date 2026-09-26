@@ -1,0 +1,117 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #050812;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(320px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(94, 140, 255, 0.3);
+  background: rgba(5, 8, 18, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.hudEyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+  margin-bottom: 12px;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.playButton {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mirari-text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 140, 255, 0.35);
+  transition: border-color 160ms ease;
+}
+
+.playButton:hover,
+.playButton:focus-visible {
+  border-color: #5f9bff;
+}
+
+.slider {
+  flex: 1;
+  accent-color: #5f9bff;
+}
+
+.speedLabel {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--mirari-text);
+  min-width: 30px;
+  text-align: right;
+}
+
+.dayCounter {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--mirari-text-faint);
+}
+
+.factPanel {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  z-index: 3;
+  width: min(240px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(94, 140, 255, 0.3);
+  background: rgba(5, 8, 18, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.factName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.factText {
+  font-size: 0.8rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.factMeta {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+}

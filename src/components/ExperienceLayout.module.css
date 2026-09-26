@@ -66,3 +66,14 @@
   position: relative;
   z-index: 1;
 }
+
+.light {
+  --mirari-text: #1a1f1c;
+  --mirari-text-muted: #3a453f;
+  --mirari-text-faint: #6b7871;
+}
+
+.light .back {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(23, 59, 50, 0.25);
+}

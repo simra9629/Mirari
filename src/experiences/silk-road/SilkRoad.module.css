@@ -1,0 +1,42 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #12182a;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(360px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(213, 173, 82, 0.3);
+  background: rgba(18, 24, 42, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.readout {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--mirari-text-faint);
+}
