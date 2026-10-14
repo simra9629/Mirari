@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { TLink as Link } from "./Transition";
 import { Mark } from "./Logo";
+import { SoundControl } from "./SoundControl";
 import styles from "./ExperienceLayout.module.css";
 
 export function ExperienceLayout({
@@ -30,9 +31,12 @@ export function ExperienceLayout({
         <Link to="/" className={styles.back}>
           <Mark size={18} /> Mirari
         </Link>
-        <div className={styles.titleBlock}>
-          <span className={styles.title}>{title}</span>
-          <span className={styles.categoryTag}>{category}</span>
+        <div className={styles.right}>
+          <SoundControl />
+          <div className={styles.titleBlock}>
+            <span className={styles.title}>{title}</span>
+            <span className={styles.categoryTag}>{category}</span>
+          </div>
         </div>
       </div>
       <div className={styles.stage}>{children}</div>

@@ -106,3 +106,5 @@
   font-size: 0.8rem;
   font-family: var(--font-mono);
 }
+
+.tools { position: fixed; top: 18px; right: 22px; z-index: 40; display: flex; gap: 8px; align-items: center; }

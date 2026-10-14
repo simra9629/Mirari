@@ -1,3 +1,4 @@
+import { makeRng } from "../../lib/rng";
 export interface Gear {
   id: string;
   teeth: number;
@@ -14,22 +15,6 @@ export interface Puzzle {
 // first output is a smooth function of the seed, so sequential seeds
 // (level * k + c) would otherwise produce long runs of near-identical
 // early results — this hash breaks that up.
-function hashSeed(n: number): number {
-  let x = n | 0;
-  x = Math.imul(x ^ (x >>> 16), 2246822507);
-  x = Math.imul(x ^ (x >>> 13), 3266489909);
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
-function makeRng(seed: number) {
-  let s = hashSeed(seed) % 2147483647;
-  if (s <= 0) s += 2147483646;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
 
 /**
  * Every gear in the train is driven by the same shared control, at its own

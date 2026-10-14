@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TLink as Link } from "../components/Transition";
 
 export function NotFound() {
   return (

@@ -1,0 +1,379 @@
+.stage {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 24px 60px;
+  background:
+    radial-gradient(ellipse at 50% 0%, #201c18 0%, #141414 70%);
+}
+
+.pageLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9b4a43;
+}
+
+.hint {
+  max-width: 460px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------- *
+ * Free-text setup panel
+ * ---------------------------------------------------------------- */
+
+.setupPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(420px, 92vw);
+  padding: 22px 20px;
+  border-radius: var(--radius-md);
+  background: #1c1712;
+  border: 1px solid #3a2f26;
+}
+
+.textInput {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #4a3d30;
+  background: #e7ddc6;
+  color: #241a12;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.textInput::placeholder {
+  color: rgba(36, 26, 18, 0.4);
+  text-transform: none;
+}
+
+.capacityError {
+  font-size: 0.74rem;
+  color: #d67d75;
+  text-align: center;
+  margin: -4px 0 0;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.suggestionChip {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  color: var(--mirari-text-muted);
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(155, 74, 67, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.suggestionChip:hover {
+  border-color: #9b4a43;
+  color: var(--mirari-text);
+}
+
+/* ---------------------------------------------------------------- *
+ * Composing stick
+ * ---------------------------------------------------------------- */
+
+.stick {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: #2a2420;
+  border: 2px solid #70513e;
+  overflow: hidden;
+}
+
+.stickSlot {
+  width: 26px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: #dad6cb;
+}
+
+.mirroredLetter {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+.inkSweep {
+  position: absolute;
+  inset: 0;
+  left: -40%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(20, 16, 14, 0.85), transparent);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.inkSweepActive {
+  animation: inkSweep 420ms ease-in-out;
+}
+
+@keyframes inkSweep {
+  0% { left: -40%; opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* ---------------------------------------------------------------- *
+ * The case: a full alphabet of type, fixed compartments
+ * ---------------------------------------------------------------- */
+
+.trayLabel {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text-faint);
+}
+
+.tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  gap: 5px;
+  max-width: 480px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: #1c1712;
+  border: 1px solid #3a2f26;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tile {
+  width: 30px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #8a8c8e 0%, #6b6d6f 100%);
+  color: #141414;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  transition: transform 140ms ease, opacity 140ms ease, box-shadow 140ms ease;
+}
+
+.tile:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.tile:not(:disabled):active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.tileUsed {
+  opacity: 0.2;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.tileWrong {
+  animation: shake 300ms ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ---------------------------------------------------------------- *
+ * Press
+ * ---------------------------------------------------------------- */
+
+.pressButton {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #141414;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #9b4a43;
+  transition: opacity 160ms ease;
+  min-width: 190px;
+}
+
+.pressButton:disabled {
+  opacity: 0.4;
+}
+
+.pressButton:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.pressBed {
+  position: relative;
+  width: min(400px, 92vw);
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+}
+
+/* The type, still sitting in the bed underneath, visible only while the
+   paper is up or coming down toward it. */
+.bedType {
+  position: absolute;
+  display: flex;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 2px;
+  background: #24201b;
+  border: 1px solid #4a3d30;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #9c9e9f;
+  font-size: 0.85rem;
+}
+
+.bedLetter {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+/* Vintage cream stock, with a very faint mottled texture built entirely
+   from layered gradients so nothing needs to be fetched. */
+.paper {
+  position: relative;
+  z-index: 1;
+  width: min(360px, 90vw);
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(150, 120, 80, 0.07), transparent 40%),
+    radial-gradient(circle at 78% 68%, rgba(150, 120, 80, 0.06), transparent 45%),
+    radial-gradient(circle at 60% 15%, rgba(120, 90, 60, 0.05), transparent 35%),
+    #e7ddc6;
+  border-radius: 2px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transform-origin: 50% 100%;
+  transition: transform 200ms ease;
+}
+
+.paperDescending {
+  animation: paperDescend 480ms cubic-bezier(0.5, 0, 0.75, 0.6) forwards;
+}
+
+@keyframes paperDescend {
+  0% { transform: translateY(-70px) rotateX(18deg) scale(0.94); box-shadow: 0 30px 30px rgba(0, 0, 0, 0.35); }
+  100% { transform: translateY(0) rotateX(0deg) scale(1); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
+}
+
+.paperImpact {
+  animation: paperImpact 220ms ease-out forwards;
+}
+
+@keyframes paperImpact {
+  0% { transform: translateY(0) scale(1); filter: brightness(1); }
+  30% { transform: translateY(3px) scale(0.985); filter: brightness(0.8); }
+  100% { transform: translateY(0) scale(1); filter: brightness(1); }
+}
+
+.paperLifting {
+  animation: paperLift 620ms cubic-bezier(0.3, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes paperLift {
+  0% { transform: translateY(0) rotateX(0deg) scale(1); }
+  100% { transform: translateY(-14px) rotateX(-4deg) scale(1.01); }
+}
+
+.paperSettled {
+  transform: translateY(-14px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+}
+
+.printedText {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: #241a12;
+}
+
+.printedLetter {
+  display: inline-block;
+  /* The debossed look of type actually pressed into damp paper. */
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35),
+    0 -1px 1px rgba(0, 0, 0, 0.45);
+}
+
+.printedSpace {
+  display: inline-block;
+  width: 0.5em;
+}
+
+.paperBlank {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(20, 20, 20, 0.3);
+}
+
+.nextButton {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mirari-text-muted);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px dashed rgba(155, 74, 67, 0.4);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.nextButton:hover {
+  color: var(--mirari-text);
+  border-color: #9b4a43;
+}

@@ -1,0 +1,14 @@
+.panel { width: 290px; }
+.panel h3 { margin: 0 0 8px; font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.row button, .restored button { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--mirari-border); background: transparent; color: var(--mirari-text); cursor: pointer; }
+.row button:hover:not(:disabled) { border-color: var(--mirari-periwinkle); }
+.row button:disabled { opacity: 0.45; cursor: not-allowed; }
+.primary { background: var(--mirari-periwinkle) !important; color: #0b1020 !important; border-color: transparent !important; font-weight: 600; }
+.danger { color: #f2b3a6 !important; border-color: rgba(240, 150, 130, 0.45) !important; }
+.code { display: block; width: 100%; margin: 8px 0; padding: 10px; border-radius: 10px; border: 1px dashed var(--mirari-border); background: rgba(255, 255, 255, 0.04); color: var(--mirari-text); font-family: var(--font-mono); font-size: 1.05rem; letter-spacing: 0.12em; text-align: center; cursor: pointer; }
+.code:hover { border-color: var(--mirari-periwinkle); }
+.input { width: 100%; margin-top: 8px; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--mirari-border); background: rgba(255, 255, 255, 0.05); color: var(--mirari-text); font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.restored { font-size: 0.8rem; color: #b8f0a0; line-height: 1.5; margin: 0 0 8px; }
+.restored button { margin-left: 6px; }
+.error { margin: 10px 0 0; font-size: 0.78rem; color: #f2b3a6; }

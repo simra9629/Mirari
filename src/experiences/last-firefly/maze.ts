@@ -1,6 +1,5 @@
+import { makeRng } from "../../lib/rng";
 export interface Cell {
-  row: number;
-  col: number;
   top: boolean;
   right: boolean;
   bottom: boolean;
@@ -19,30 +18,12 @@ export interface Maze {
 // first output is a smooth function of the seed, so sequential seeds
 // (level * k + c) would otherwise produce long runs of near-identical
 // early results — this hash breaks that up.
-function hashSeed(n: number): number {
-  let x = n | 0;
-  x = Math.imul(x ^ (x >>> 16), 2246822507);
-  x = Math.imul(x ^ (x >>> 13), 3266489909);
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
-function makeRng(seed: number) {
-  let s = hashSeed(seed) % 2147483647;
-  if (s <= 0) s += 2147483646;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
 
 /** Generates a perfect maze (exactly one path between any two cells) via recursive backtracking. */
 export function generateMaze(cols: number, rows: number, seed: number): Maze {
   const rand = makeRng(seed);
-  const cells: Cell[][] = Array.from({ length: rows }, (_, row) =>
-    Array.from({ length: cols }, (_, col) => ({
-      row,
-      col,
+  const cells: Cell[][] = Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => ({
       top: true,
       right: true,
       bottom: true,

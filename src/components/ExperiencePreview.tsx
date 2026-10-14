@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TLink as Link } from "./Transition";
 import type { Experience } from "../data/types";
 import styles from "./ExperiencePreview.module.css";
 

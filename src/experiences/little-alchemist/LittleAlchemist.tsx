@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { ExperienceLayout } from "../../components/ExperienceLayout";
 import {
   baseMaterials,
@@ -8,9 +9,12 @@ import {
   getStage,
   getUnlockedConditions,
   nextStage,
+  STAGES,
   type ConditionType,
   type Material,
 } from "./engine";
+import { LabScene, type LabEvent } from "./lab/LabScene";
+import { LabAudio } from "./lab/labAudio";
 import styles from "./LittleAlchemist.module.css";
 
 interface CanvasItem {
@@ -36,6 +40,15 @@ function newInstanceId() {
 
 type DragPayload = { materialId: string; instanceId?: string };
 
+/** A stable, pleasant colour for each material's jar on the lab shelf. */
+function jarColor(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 360;
+  const s = 0.55, l = 0.58, a = s * Math.min(l, 1 - l);
+  const f = (n: number) => { const k = (n + h / 30) % 12; const c = l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); return Math.round(c * 255).toString(16).padStart(2, "0"); };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
 export function LittleAlchemist() {
   const [known, setKnown] = useState<Map<string, Material>>(
     () => new Map(baseMaterials.map((m) => [m.id, m])),
@@ -48,11 +61,31 @@ export function LittleAlchemist() {
   const [fizzleAt, setFizzleAt] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const toastTimer = useRef<number | null>(null);
+  const [labEvent, setLabEvent] = useState<LabEvent | null>(null);
+  const [soundOn, setSoundOn] = useState(false);
+  const [stageNote, setStageNote] = useState<string | null>(null);
+  const [reduced] = useState(() => typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+  const audio = useRef<LabAudio | null>(null);
+  const eventKey = useRef(0);
+  const prevStage = useRef(0);
+  const noteTimer = useRef<number | null>(null);
 
   const discoveredList = Array.from(known.values());
   const stage = getStage(discoveredList.length);
   const unlockedConditions = getUnlockedConditions(discoveredList.length);
   const upcoming = nextStage(discoveredList.length);
+  const stageIndex = STAGES.indexOf(stage);
+
+  function emit(kind: LabEvent["kind"]) {
+    eventKey.current += 1;
+    setLabEvent({ key: eventKey.current, kind });
+  }
+
+  function toggleSound() {
+    if (!audio.current) audio.current = new LabAudio();
+    if (audio.current.enabled) { audio.current.stop(); setSoundOn(false); }
+    else { audio.current.start(stageIndex); setSoundOn(true); }
+  }
 
   function showToast(t: Toast) {
     setToast(t);
@@ -86,6 +119,7 @@ export function LittleAlchemist() {
       setFizzleAt(targetInstanceId);
       window.setTimeout(() => setFizzleAt((cur) => (cur === targetInstanceId ? null : cur)), 500);
       showToast({ kind: "fizzle", line: selfFizzleLines[Math.floor(Math.random() * selfFizzleLines.length)] });
+      audio.current?.fizzle(); emit("fizzle");
       return;
     }
 
@@ -95,6 +129,14 @@ export function LittleAlchemist() {
     if (outcome.isNew) {
       setKnown((prev) => new Map(prev).set(outcome.material.id, outcome.material));
     }
+    // the lab answers: the condition first, then the result
+    const cond = condition;
+    if (cond === "heat") { audio.current?.flare(); emit("heat"); }
+    else if (cond === "cool") { audio.current?.chill(); emit("cool"); }
+    else if (cond === "grind") { audio.current?.grind(); emit("grind"); }
+    else if (cond === "wait") { audio.current?.wait(); emit("wait"); }
+    else audio.current?.clink();
+    window.setTimeout(() => { audio.current?.discover(outcome.isNew); emit(outcome.isNew ? "new" : "known"); }, cond === "none" ? 0 : 320);
     showToast({ kind: "discovery", emoji: outcome.material.emoji, name: outcome.material.name, isNew: outcome.isNew });
 
     setItems((prev) => {
@@ -175,17 +217,50 @@ export function LittleAlchemist() {
 
   useEffect(() => () => {
     if (toastTimer.current) window.clearTimeout(toastTimer.current);
+    if (noteTimer.current) window.clearTimeout(noteTimer.current);
+    audio.current?.stop();
   }, []);
+
+  // the lab grows when you reach a new stage
+  useEffect(() => {
+    if (stageIndex === prevStage.current) return;
+    const grew = stageIndex > prevStage.current;
+    prevStage.current = stageIndex;
+    audio.current?.setStage(stageIndex);
+    if (!grew) return;
+    audio.current?.stageUp();
+    setStageNote(`${stage.name} — ${stage.flavor}`);
+    if (noteTimer.current) window.clearTimeout(noteTimer.current);
+    noteTimer.current = window.setTimeout(() => setStageNote(null), 5200);
+  }, [stageIndex, stage]);
+
+  useEffect(() => { if (audio.current) audio.current.heat = condition === "heat" ? 1 : 0; }, [condition]);
 
   return (
     <ExperienceLayout title="Little Alchemist" category="Game" accent="#F56FA8" background="#120a16">
       <div className={styles.stage}>
+        <LabScene
+          className={styles.lab}
+          stage={stageIndex}
+          jars={discoveredList.map((m) => jarColor(m.id))}
+          condition={condition}
+          event={labEvent}
+          reduced={reduced}
+        />
+        {stageNote && (
+          <div className={styles.stageNote} ref={(el) => { if (el && !reduced) gsap.fromTo(el, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }); }}>
+            {stageNote}
+          </div>
+        )}
         <div className={styles.topBar}>
           <p className={styles.progress}>{discoveredList.length} discovered</p>
           <div className={styles.stageBadge} title={stage.flavor}>
             {stage.name}
             {upcoming && <span className={styles.stageNext}> · {upcoming.threshold - discoveredList.length} to {upcoming.name}</span>}
           </div>
+          <button type="button" className={styles.journalToggle} onClick={toggleSound} aria-pressed={soundOn} title="The furnace crackles, the flasks bubble, glass clinks. Quiet until you turn it on.">
+            Sound {soundOn ? "on" : "off"}
+          </button>
           <button type="button" className={styles.journalToggle} onClick={() => setJournalOpen((o) => !o)}>
             {journalOpen ? "Close journal" : "Journal"}
           </button>
@@ -258,7 +333,7 @@ export function LittleAlchemist() {
         </div>
 
         {toast && toast.kind === "discovery" && (
-          <div className={styles.toast}>
+          <div className={styles.toast} ref={(el) => { if (el && !reduced) gsap.fromTo(el, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }); }}>
             {toast.isNew && <span className={styles.toastNew}>New discovery</span>}
             <span className={styles.toastEmoji}>{toast.emoji}</span>
             <span className={styles.toastName}>{toast.name}</span>
@@ -271,7 +346,7 @@ export function LittleAlchemist() {
         )}
 
         {journalOpen && (
-          <div className={styles.journal}>
+          <div className={styles.journal} ref={(el) => { if (el && !reduced) gsap.fromTo(el, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }); }}>
             <div className={styles.journalEyebrow}>Discovery journal</div>
             {journalByDepth.map(([depth, materials]) => (
               <div key={depth} className={styles.journalGroup}>

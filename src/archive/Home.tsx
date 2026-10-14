@@ -1,6 +1,8 @@
 import { Starfield } from "../components/Starfield";
 import { ExperiencePreview } from "../components/ExperiencePreview";
 import { Wordmark } from "../components/Logo";
+import { SoundControl } from "../components/SoundControl";
+import { SyncPanel } from "../components/SyncPanel";
 import { experiences, featuredIds } from "../data/experiences";
 import { categories } from "../data/categories";
 import styles from "./Home.module.css";
@@ -17,6 +19,11 @@ export function Home() {
     <div className={styles.page}>
       <div className={styles.starfield}>
         <Starfield />
+      </div>
+
+      <div className={styles.tools}>
+        <SyncPanel />
+        <SoundControl />
       </div>
 
       <div className={styles.content}>

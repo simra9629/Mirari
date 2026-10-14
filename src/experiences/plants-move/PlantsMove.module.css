@@ -1,0 +1,70 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #182013;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+.hud {
+  position: absolute;
+  left: 24px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(320px, calc(100% - 48px));
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(127, 174, 122, 0.3);
+  background: rgba(24, 32, 19, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.caption {
+  font-size: 0.8rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  min-height: 2.4em;
+}
+
+.readout {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  color: var(--mirari-text-faint);
+  margin-bottom: 10px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--mirari-text-faint);
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+

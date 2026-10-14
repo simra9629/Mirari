@@ -1,3 +1,4 @@
+import { makeRng } from "../../lib/rng";
 export interface Layer {
   panelId: number;
   faceUp: boolean;
@@ -18,22 +19,6 @@ export interface FoldPuzzle {
 // first output is a smooth function of the seed, so sequential seeds
 // (level * k + c) would otherwise produce long runs of near-identical
 // early results — this hash breaks that up.
-function hashSeed(n: number): number {
-  let x = n | 0;
-  x = Math.imul(x ^ (x >>> 16), 2246822507);
-  x = Math.imul(x ^ (x >>> 13), 3266489909);
-  x ^= x >>> 16;
-  return x >>> 0;
-}
-
-function makeRng(seed: number) {
-  let s = hashSeed(seed) % 2147483647;
-  if (s <= 0) s += 2147483646;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
 
 export function initRow(n: number): Row {
   return Array.from({ length: n }, (_, i) => [{ panelId: i, faceUp: true }]);

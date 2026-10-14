@@ -1,0 +1,86 @@
+.overlay { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; visibility: hidden; }
+.overlay:not([data-phase="idle"]) { visibility: visible; }
+.overlay[data-phase="cover"] { pointer-events: all; }
+
+.fill, .goo i, .grid i, .bars i, .panelL, .panelR { background: var(--t-fill); }
+.fill { position: absolute; inset: 0; display: block; }
+
+/* ---- iris (games): a circle opens from where you pressed ---- */
+[data-style="iris"] .fill { box-shadow: inset 0 0 0 4px var(--t-accent); }
+[data-style="iris"][data-phase="cover"] .fill { animation: irisIn var(--t-cover) cubic-bezier(.6, .05, .3, 1) both; }
+[data-style="iris"][data-phase="reveal"] .fill { animation: irisOut var(--t-reveal) cubic-bezier(.6, .05, .3, 1) both; }
+@keyframes irisIn { from { clip-path: circle(0% at var(--t-x) var(--t-y)); } to { clip-path: circle(150% at var(--t-x) var(--t-y)); } }
+@keyframes irisOut { from { clip-path: circle(150% at 50% 50%); } to { clip-path: circle(0% at 50% 50%); } }
+
+/* ---- swoop: a diagonal wipe, like a broom going past ---- */
+[data-style="swoop"] .fill { inset: 0 -30%; background: linear-gradient(100deg, var(--t-fill) 70%, var(--t-accent) 70.5%, var(--t-accent) 72%, var(--t-fill) 72.5%); }
+[data-style="swoop"][data-phase="cover"] .fill { animation: swoopIn var(--t-cover) cubic-bezier(.5, 0, .2, 1) both; }
+[data-style="swoop"][data-phase="reveal"] .fill { animation: swoopOut var(--t-reveal) cubic-bezier(.5, 0, .2, 1) both; }
+@keyframes swoopIn { from { transform: translateX(-100%) skewX(-14deg); } to { transform: translateX(0) skewX(-14deg); } }
+@keyframes swoopOut { from { transform: translateX(0) skewX(-14deg); } to { transform: translateX(100%) skewX(-14deg); } }
+
+/* ---- scan (science): a measuring line sweeps across ---- */
+[data-style="scan"] .fill { box-shadow: 4px 0 0 var(--t-accent), 14px 0 30px var(--t-accent); }
+[data-style="scan"][data-phase="cover"] .fill { transform-origin: left; animation: scanIn var(--t-cover) cubic-bezier(.6, 0, .3, 1) both; }
+[data-style="scan"][data-phase="reveal"] .fill { transform-origin: right; animation: scanOut var(--t-reveal) cubic-bezier(.6, 0, .3, 1) both; box-shadow: -4px 0 0 var(--t-accent), -14px 0 30px var(--t-accent); }
+@keyframes scanIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes scanOut { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+/* ---- bloom (tiny worlds): a soft glow fills the screen ---- */
+[data-style="bloom"] .fill { background: radial-gradient(circle at var(--t-x) var(--t-y), color-mix(in srgb, var(--t-accent) 55%, var(--t-fill)) 0%, var(--t-fill) 55%); }
+[data-style="bloom"][data-phase="cover"] .fill { animation: bloomIn var(--t-cover) ease-out both; }
+[data-style="bloom"][data-phase="reveal"] .fill { animation: bloomOut var(--t-reveal) ease-in both; }
+@keyframes bloomIn { from { opacity: 0; transform: scale(0.6); filter: blur(30px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+@keyframes bloomOut { from { opacity: 1; transform: scale(1); filter: blur(0); } to { opacity: 0; transform: scale(1.5); filter: blur(24px); } }
+
+/* ---- warp (strange things): the screen twists shut ---- */
+[data-style="warp"] .fill { background: conic-gradient(from 0deg, var(--t-fill), color-mix(in srgb, var(--t-accent) 45%, var(--t-fill)), var(--t-fill), color-mix(in srgb, var(--t-accent) 30%, var(--t-fill)), var(--t-fill)); }
+[data-style="warp"][data-phase="cover"] .fill { animation: warpIn var(--t-cover) cubic-bezier(.5, 0, .3, 1) both; }
+[data-style="warp"][data-phase="reveal"] .fill { animation: warpOut var(--t-reveal) cubic-bezier(.5, 0, .3, 1) both; }
+@keyframes warpIn { from { transform: scale(0.1) rotate(-160deg); border-radius: 50%; opacity: 0; } to { transform: scale(1.6) rotate(0); border-radius: 0; opacity: 1; } }
+@keyframes warpOut { from { transform: scale(1.6) rotate(0); opacity: 1; } to { transform: scale(0.1) rotate(160deg); border-radius: 50%; opacity: 0; } }
+
+/* ---- fade: reduced motion ---- */
+[data-style="fade"][data-phase="cover"] .fill { animation: fadeIn 140ms linear both; }
+[data-style="fade"][data-phase="reveal"] .fill { animation: fadeOut 180ms linear both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+/* ---- tiles (puzzles): a grid of squares flips shut from where you pressed ---- */
+.grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(6, 1fr); }
+.grid i { display: block; margin: -0.5px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--t-accent) 40%, transparent); }
+[data-phase="cover"] .grid i { animation: tileIn 260ms cubic-bezier(.4, 0, .2, 1) both; }
+[data-phase="reveal"] .grid i { animation: tileOut 300ms cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes tileIn { from { transform: scale(0) rotate(45deg); } to { transform: scale(1.04) rotate(0); } }
+@keyframes tileOut { from { transform: scale(1.04); } to { transform: scale(0) rotate(-45deg); } }
+
+/* ---- blinds (experiments): venetian bars ---- */
+.bars { position: absolute; inset: 0; display: grid; grid-template-rows: repeat(8, 1fr); }
+.bars i { display: block; margin: -0.5px 0; border-bottom: 1px solid var(--t-accent); }
+[data-phase="cover"] .bars i { transform-origin: top; animation: barIn 300ms steps(6, end) both; }
+[data-phase="reveal"] .bars i { transform-origin: bottom; animation: barOut 360ms steps(6, end) both; }
+@keyframes barIn { from { transform: scaleY(0); } to { transform: scaleY(1.02); } }
+@keyframes barOut { from { transform: scaleY(1.02); } to { transform: scaleY(0); } }
+
+/* ---- curtain (history): two heavy panels ---- */
+.panelL, .panelR { position: absolute; top: 0; bottom: 0; width: 51%; display: block; }
+.panelL { left: 0; border-right: 3px solid var(--t-accent); }
+.panelR { right: 0; border-left: 3px solid var(--t-accent); }
+[data-phase="cover"] .panelL { animation: curL var(--t-cover) cubic-bezier(.7, 0, .3, 1) both; }
+[data-phase="cover"] .panelR { animation: curR var(--t-cover) cubic-bezier(.7, 0, .3, 1) both; }
+[data-phase="reveal"] .panelL { animation: curLout var(--t-reveal) cubic-bezier(.7, 0, .3, 1) both; }
+[data-phase="reveal"] .panelR { animation: curRout var(--t-reveal) cubic-bezier(.7, 0, .3, 1) both; }
+@keyframes curL { from { transform: translateX(-101%); } to { transform: translateX(0); } }
+@keyframes curR { from { transform: translateX(101%); } to { transform: translateX(0); } }
+@keyframes curLout { from { transform: translateX(0); } to { transform: translateX(-101%); } }
+@keyframes curRout { from { transform: translateX(0); } to { transform: translateX(101%); } }
+
+/* ---- ink (interactive art): blobs swell together ---- */
+.goo { position: absolute; inset: 0; filter: url(#goo); }
+.goo i { position: absolute; width: 60vmax; height: 60vmax; margin: -30vmax 0 0 -30vmax; border-radius: 50%; display: block; }
+[data-phase="cover"] .goo i { animation: inkIn var(--t-cover) cubic-bezier(.4, 0, .2, 1) both; }
+[data-phase="reveal"] .goo i { animation: inkOut var(--t-reveal) cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes inkIn { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes inkOut { from { transform: scale(1); } to { transform: scale(0); } }
+
+@media (prefers-reduced-motion: reduce) { .overlay * { animation-duration: 120ms !important; animation-delay: 0ms !important; } }

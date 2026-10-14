@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { reportVisit } from "./lib/sync";
 import { Home } from "./archive/Home";
 import { NotFound } from "./archive/NotFound";
 import styles from "./App.module.css";
@@ -19,6 +21,9 @@ const Clockmaker = lazy(() => import("./experiences/clockmaker/Clockmaker").then
 const Parcel = lazy(() => import("./experiences/parcel/Parcel").then((m) => ({ default: m.Parcel })));
 const Railway = lazy(() => import("./experiences/railway/Railway").then((m) => ({ default: m.Railway })));
 const LittleAlchemist = lazy(() => import("./experiences/little-alchemist/LittleAlchemist").then((m) => ({ default: m.LittleAlchemist })));
+const Up = lazy(() => import("./experiences/up/Up").then((m) => ({ default: m.Up })));
+const DragonSchool = lazy(() => import("./experiences/dragon-school/DragonSchool").then((m) => ({ default: m.DragonSchool })));
+const FoxStars = lazy(() => import("./experiences/fox-stars/FoxStars").then((m) => ({ default: m.FoxStars })));
 const Ink = lazy(() => import("./experiences/ink/Ink").then((m) => ({ default: m.Ink })));
 const Fold = lazy(() => import("./experiences/fold/Fold").then((m) => ({ default: m.Fold })));
 const Signal = lazy(() => import("./experiences/signal/Signal").then((m) => ({ default: m.Signal })));
@@ -46,6 +51,16 @@ const City = lazy(() => import("./experiences/city/City").then((m) => ({ default
 const EarthSpin = lazy(() => import("./experiences/earth-spin/EarthSpin").then((m) => ({ default: m.EarthSpin })));
 const MoonDisappeared = lazy(() => import("./experiences/moon-disappeared/MoonDisappeared").then((m) => ({ default: m.MoonDisappeared })));
 const Cat = lazy(() => import("./experiences/cat/Cat").then((m) => ({ default: m.Cat })));
+const PrintingPress = lazy(() => import("./experiences/printing-press/PrintingPress").then((m) => ({ default: m.PrintingPress })));
+const Cartographer = lazy(() => import("./experiences/cartographer/Cartographer").then((m) => ({ default: m.Cartographer })));
+const WitchDelivery = lazy(() => import("./experiences/witch-delivery/WitchDelivery").then((m) => ({ default: m.WitchDelivery })));
+const BugHotel = lazy(() => import("./experiences/bug-hotel/BugHotel").then((m) => ({ default: m.BugHotel })));
+const Ecosystem = lazy(() => import("./experiences/ecosystem/Ecosystem").then((m) => ({ default: m.Ecosystem })));
+const Island = lazy(() => import("./experiences/island/Island").then((m) => ({ default: m.Island })));
+const Aquarium = lazy(() => import("./experiences/aquarium/Aquarium").then((m) => ({ default: m.Aquarium })));
+const SoundSpeed = lazy(() => import("./experiences/sound-speed/SoundSpeed").then((m) => ({ default: m.SoundSpeed })));
+const PlantsMove = lazy(() => import("./experiences/plants-move/PlantsMove").then((m) => ({ default: m.PlantsMove })));
+const BureaucracySimulator = lazy(() => import("./experiences/bureaucracy-simulator/BureaucracySimulator").then((m) => ({ default: m.BureaucracySimulator })));
 
 function LoadingFallback() {
   return (
@@ -56,6 +71,11 @@ function LoadingFallback() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const m = /^\/experience\/([a-z0-9-]+)/.exec(pathname);
+    if (m) void reportVisit(m[1]);
+  }, [pathname]);
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
@@ -75,6 +95,9 @@ export default function App() {
         <Route path="/experience/parcel" element={<Parcel />} />
         <Route path="/experience/railway" element={<Railway />} />
         <Route path="/experience/little-alchemist" element={<LittleAlchemist />} />
+        <Route path="/experience/up" element={<Up />} />
+        <Route path="/experience/dragon-school" element={<DragonSchool />} />
+        <Route path="/experience/fox-stars" element={<FoxStars />} />
         <Route path="/experience/ink" element={<Ink />} />
         <Route path="/experience/fold" element={<Fold />} />
         <Route path="/experience/signal" element={<Signal />} />
@@ -102,6 +125,16 @@ export default function App() {
         <Route path="/experience/earth-spin" element={<EarthSpin />} />
         <Route path="/experience/moon-disappeared" element={<MoonDisappeared />} />
         <Route path="/experience/cat" element={<Cat />} />
+        <Route path="/experience/printing-press" element={<PrintingPress />} />
+        <Route path="/experience/cartographer" element={<Cartographer />} />
+        <Route path="/experience/ecosystem" element={<Ecosystem />} />
+        <Route path="/experience/island" element={<Island />} />
+        <Route path="/experience/aquarium" element={<Aquarium />} />
+        <Route path="/experience/bug-hotel" element={<BugHotel />} />
+        <Route path="/experience/witch-delivery" element={<WitchDelivery />} />
+        <Route path="/experience/sound-speed" element={<SoundSpeed />} />
+        <Route path="/experience/plants-move" element={<PlantsMove />} />
+        <Route path="/experience/bureaucracy-simulator" element={<BureaucracySimulator />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

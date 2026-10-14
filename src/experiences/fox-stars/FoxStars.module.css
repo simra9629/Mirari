@@ -1,0 +1,172 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 17, 32, 0.65);
+  border: 1px solid rgba(124, 130, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+
+.starChip {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+  color: rgba(237, 243, 255, 0.3);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 243, 255, 0.12);
+  transition: color 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.starChipOn {
+  color: #ffe29a;
+  border-color: rgba(255, 226, 154, 0.5);
+  background: rgba(255, 226, 154, 0.1);
+}
+
+.respawnCount {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: rgba(184, 77, 77, 0.85);
+  margin-left: 4px;
+}
+
+/* ---------------------------------------------------------------- *
+ * Menu / end panels
+ * ---------------------------------------------------------------- */
+
+.menuPanel,
+.endPanel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: min(420px, 90vw);
+  padding: 26px 24px;
+  border-radius: var(--radius-md);
+  background: rgba(11, 17, 32, 0.78);
+  border: 1px solid rgba(124, 130, 255, 0.2);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.menuTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--mirari-text);
+  margin: 0 0 10px;
+}
+
+.menuHint {
+  font-size: 0.82rem;
+  color: var(--mirari-text-muted);
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.controlHint {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--mirari-text-faint);
+  margin: 0 0 18px;
+}
+
+.progressNote {
+  font-size: 0.72rem;
+  color: #ffe29a;
+  margin: 0 0 14px;
+}
+
+.launchButton {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: #7c82ff;
+  color: #0b1120;
+}
+
+.endText {
+  font-size: 0.92rem;
+  color: var(--mirari-text);
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.endSub {
+  font-size: 0.74rem;
+  color: var(--mirari-text-faint);
+  margin: 0 0 18px;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--mirari-text-muted);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(124, 130, 255, 0.25);
+  transition: background 160ms ease;
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.levelChip {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+  color: var(--mirari-text-muted);
+  padding-right: 6px;
+  border-right: 1px solid rgba(237, 243, 255, 0.15);
+  margin-right: 2px;
+}
+
+.levelPicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 4px 0 16px;
+}
+
+.levelPickerLabel {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--mirari-text);
+  min-width: 70px;
+}
+
+.endButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
